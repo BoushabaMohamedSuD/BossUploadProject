@@ -1,0 +1,19 @@
+//!!!!!!!!!!!!!
+
+            BEFOR YOU RUN OR YOU DEPLOY YOUR SCRIPTS YOU HAVE FIRST 
+
+
+//////////
+
+
+make sure to provade the dist/repos(name you chose)
+            in package.json on cpx node modules
+            in ts.config
+            in templet.yaml
+
+
+
+////name of bucket and stack uplaod 
+
+            boushabamohamedstuff
+            BossUpload
