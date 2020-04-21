@@ -12,6 +12,8 @@
   "scripts": {
     "prebuild": "mkdirp ../dist || true",
     "build-watch": "npm run prebuild && npm run copy-dependencies && tsc -w --preserveWatchOutput true",
+    "build-micor": "tsc",
+    "copy-packgeJson": "cpx \"./package.json\" ../dist/CustomLinkProvider/",
     "build": "npm run prebuild && npm run copy-dependencies && tsc",
     "copy-dependencies": "cpx \"./node_modules/**/*\" ../dist/hello-world/node_modules",
     "test": "mocha --require ts-node/register ./**/*.spec.ts",

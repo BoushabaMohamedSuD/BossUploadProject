@@ -9,6 +9,7 @@
 make sure to provade the dist/repos(name you chose)
             in package.json on cpx node modules
             in ts.config
+            
             in templet.yaml
 
 

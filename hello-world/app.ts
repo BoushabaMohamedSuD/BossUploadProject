@@ -49,7 +49,8 @@ export async function lambdaHandler(event, context) {
             'body': JSON.stringify({
                 message: echoThisString('hello world'),
                 location: ret.data.trim(),
-                name: name
+                name: name,
+                micor: "micor",
             })
         }
     } catch (err) {

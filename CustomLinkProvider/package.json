@@ -7,12 +7,15 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^10.17.14",
+    "aws-sdk": "^2.659.0",
     "axios": "^0.18.0"
   },
   "scripts": {
     "prebuild": "mkdirp ../dist || true",
-    "build-watch": "npm run prebuild && npm run copy-dependencies && tsc -w --preserveWatchOutput true",
-    "build": "npm run prebuild && npm run copy-dependencies && tsc",
+    "build-watch": "npm run prebuild && npm run copy-dependencies copy-packgeJson && tsc -w --preserveWatchOutput true",
+    "build": "npm run prebuild && npm run copy-dependencies && npm run copy-packgeJson  && tsc",
+    "build-micor": "tsc",
+    "copy-packgeJson": "cpx \"./package.json\" ../dist/CustomLinkProvider/",
     "copy-dependencies": "cpx \"./node_modules/**/*\" ../dist/CustomLinkProvider/node_modules",
     "test": "mocha --require ts-node/register ./**/*.spec.ts",
     "start-api": "concurrently --kill-others --kill-others-on-fail \"npm run build-watch\" \"sam local start-api --template ../template.yaml\""
