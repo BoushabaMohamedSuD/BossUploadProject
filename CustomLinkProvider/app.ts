@@ -1,6 +1,6 @@
-import CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider'
-
-const cognitoIdp = new CognitoIdentityServiceProvider()
+const AWS = require("aws-sdk");
+AWS.config.update({ region: 'us-east-1' });
+const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 
 //for getting the the user that is already signup 
@@ -10,7 +10,7 @@ const getUserByEmail = async (userPoolId, email) => {
         UserPoolId: userPoolId,
         Filter: `email = "${email}"`
     }
-    return cognitoIdp.listUsers(params).promise()
+    return cognitoidentityserviceprovider.listUsers(params).promise()
 }
 
 const linkProviderToUser = async (username, userPoolId, providerName, providerUserId) => {
@@ -28,7 +28,7 @@ const linkProviderToUser = async (username, userPoolId, providerName, providerUs
     }
 
     const result = await (new Promise((resolve, reject) => {
-        cognitoIdp.adminLinkProviderForUser(params, (err, data) => {
+        cognitoidentityserviceprovider.adminLinkProviderForUser(params, (err, data) => {
             if (err) {
                 reject(err)
                 return
@@ -40,43 +40,89 @@ const linkProviderToUser = async (username, userPoolId, providerName, providerUs
     return result
 }
 
-exports.handler = async (event, context, callback) => {
-    if (event.triggerSource === 'PreSignUp_ExternalProvider') {
-        // if an exteral provider is triggered
+export async function lambdaHandler(event, context, callback) {
+    console.log("begun operation");
+    return new Promise((resolve, reject) => {
+        if (event.triggerSource === 'PreSignUp_ExternalProvider') {
+            console.log("exeternal sign up")
+            // if an exteral provider is triggered
 
-        const userRs: any = await getUserByEmail(event.userPoolId,
-            event.request.userAttributes.email);
+            getUserByEmail(event.userPoolId,
+                event.request.userAttributes.email)
+                .then(userRs => {
+                    console.log(userRs);
+                    if (userRs && userRs.Users.length == 1) {
+                        console.log("we fund user with the same email");
+                        console.log("begun linking")
+                        // we link her the user who sign up with the ednetity provider
+                        //with the internall user
+                        //cause we allow just one email
+
+                        const [providerName, providerUserId] = event.userName.split('_') // event userName example: "Facebook_12324325436"
+                        linkProviderToUser(userRs.Users[0].Username, event.userPoolId, providerName, providerUserId)
+                            .then(resp => {
+                                console.log("link success");
+                                console.log(resp);
+                                resolve(callback(null, event));
+                            })
+                            .catch(err => {
+                                console.log("link failed");
+                                console.log(err);
+                                reject();
+                            });
+                    } else if (userRs && userRs.Users.length > 1) {
+                        console.log("multiple user with the same email")
+                        console.log("this is an error");
+                        reject()
+                    } else {
+                        //no user with the same email exist 
+                        //so we accept sign up
+                        console.log('user not found, skip.');
+                        resolve(callback(null, event));
+                    }
+
+                })
+                .catch(err => {
+                    console.log("we cannot get user with the same email");
+                    reject();
+                });
 
 
-        if (userRs && userRs.Users.length > 0) {
 
-            // we link her the user who sign up with the ednetity provider
-            //with the internall user
-            //cause we allow just one email
-
-            const [providerName, providerUserId] = event.userName.split('_') // event userName example: "Facebook_12324325436"
-            await linkProviderToUser(userRs.Users[0].Username, event.userPoolId, providerName, providerUserId)
         } else {
-            console.log('user not found, skip.')
+            console.log('internall signup')
+            //if  the the user who want to sign up is enternal
+            //we have to chech is the email is already exist 
+
+            getUserByEmail(event.userPoolId,
+                event.request.userAttributes.email)
+                .then(userRs => {
+                    console.log(userRs);
+                    if (userRs && userRs.Users.length > 0) {
+                        console.log("user with the ame email already exist  forbiden");
+                        // the user her is laready existe
+                        // he is already sign ip with an external provied
+                        //or he is already exist
+                        //so we need to block or deny the sign up process her
+                        reject();
+
+                    } else {
+                        console.log('good  user with the same email not found');
+                        console.log('skip');
+                        resolve(callback(null, event));
+                    }
+                })
+                .catch(err => {
+                    console.log("we cannot list user with the same email");
+                    reject();
+                });
+
+
         }
 
-    } else {
-        //if  the the user who want to sign up is enternal
-        //we have to chech is the email is already exist 
+        // return callback(null, event)
 
-        const userRs: any = await getUserByEmail(event.userPoolId,
-            event.request.userAttributes.email);
-        if (userRs && userRs.Users.length > 0) {
-            // the user her is laready existe
-            // he is already sign ip with an external provied
-            //or he is already exist
-            //so we need to block or deny the sign up process her
-            return callback(null, null);
+    })
 
-        } else {
-            console.log('good  user not found');
-            console.log('skip');
-        }
-    }
-    return callback(null, event)
+
 }
