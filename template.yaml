@@ -34,5 +34,6 @@ Resources:
             CodeUri: dist/CustomLinkProvider/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::aws:policy/AmazonCognitoDeveloperAuthenticatedIdentities
             
            
