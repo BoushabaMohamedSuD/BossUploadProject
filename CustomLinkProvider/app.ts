@@ -42,9 +42,10 @@ const linkProviderToUser = async (username, userPoolId, providerName, providerUs
 
 export async function lambdaHandler(event, context, callback) {
     console.log("begun operation");
+    console.log(event);
     return new Promise((resolve, reject) => {
         if (event.triggerSource === 'PreSignUp_ExternalProvider') {
-            console.log("exeternal sign up")
+            console.log("exeternal sign up");
             // if an exteral provider is triggered
 
             getUserByEmail(event.userPoolId,
@@ -84,13 +85,16 @@ export async function lambdaHandler(event, context, callback) {
                 })
                 .catch(err => {
                     console.log("we cannot get user with the same email");
+                    console.log(err);
                     reject();
                 });
 
 
 
         } else {
-            console.log('internall signup')
+            console.log('internall signup');
+            console.log("userpoolid : " + event.userPoolId);
+            console.log("user email : " + event.request.userAttributes.email);
             //if  the the user who want to sign up is enternal
             //we have to chech is the email is already exist 
 
@@ -114,6 +118,7 @@ export async function lambdaHandler(event, context, callback) {
                 })
                 .catch(err => {
                     console.log("we cannot list user with the same email");
+                    console.log(err);
                     reject();
                 });
 

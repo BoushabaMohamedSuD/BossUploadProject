@@ -34,6 +34,6 @@ Resources:
             CodeUri: dist/CustomLinkProvider/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
-            Role: arn:aws:iam::265267535237:role/BossUpladLambdaFullAccess
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessCognitp
             
            
