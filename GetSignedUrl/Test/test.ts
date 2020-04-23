@@ -16,10 +16,10 @@ const axios = require('axios').default;
 //var FormData = require('form-data');
 
 var params = {
-    Bucket: 'public-bossuplaod',
+    Bucket: 'private-bossupload',
     Key: 'Test1/Datacenter.pdf',
     ContentType: "multipart/form-data",
-    Expires: 3600
+    Expires: 20
 };
 s3.getSignedUrl('putObject', params, function (err, url) {
     if (err) {
