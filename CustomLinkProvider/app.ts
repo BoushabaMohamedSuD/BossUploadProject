@@ -75,12 +75,12 @@ export async function lambdaHandler(event, context, callback) {
                                 .catch(err => {
                                     console.log("link failed");
                                     console.log(err);
-                                    reject();
+                                    resolve(callback("!link failed", null));
                                 });
                         } else {
                             //user is not confirmed
                             console.log("user is not confirmed");
-                            reject();
+                            resolve(callback("!Original User is not confirmed yet", null));
 
                         }
 
@@ -90,12 +90,13 @@ export async function lambdaHandler(event, context, callback) {
                     } else if (userRs && userRs.Users.length > 1) {
                         console.log("multiple user with the same email")
                         console.log("this is an error");
-                        reject()
+                        resolve(callback("!Internal Error Custom", null));
                     } else {
                         //no user with the same email exist 
                         //so we accept sign up
                         //and we create an iteme on the table
-
+                        console.log('user not found, skip.');
+                        console.log("create original item");
                         let params = {
                             Item: {
                                 "email": {
@@ -115,21 +116,28 @@ export async function lambdaHandler(event, context, callback) {
                             TableName: "Users_Info"
                         };
                         dynamodb.putItem(params, function (err, data) {
-                            if (err) console.log(err, err.stack);
-                            else console.log(data);
+                            if (err) {
+                                //console.log(err, err.stack);
+                                resolve(callback("!cannot create item on dynamo db", null));
+                            }
+                            else {
+                                //console.log(data);
+                                console.log("Succes Create Item");
+                                resolve(callback(null, event));
+                            }
 
                         });
 
 
-                        console.log('user not found, skip.');
-                        resolve(callback(null, event));
+
+
                     }
 
                 })
                 .catch(err => {
                     console.log("we cannot get user with the same email");
                     console.log(err);
-                    reject();
+                    resolve(callback("!we cannot get user with the same email", null));
                 });
 
 
@@ -151,11 +159,12 @@ export async function lambdaHandler(event, context, callback) {
                         // he is already sign ip with an external provied
                         //or he is already exist
                         //so we need to block or deny the sign up process her
-                        reject();
+                        resolve(callback("!user with the ame email already exist  forbiden", null));
 
                     } else {
                         console.log('good  user with the same email not found');
                         console.log('skip');
+                        console.log("create item on dynamodb");
 
                         let params = {
                             Item: {
@@ -176,19 +185,25 @@ export async function lambdaHandler(event, context, callback) {
                             TableName: "Users_Info"
                         };
                         dynamodb.putItem(params, function (err, data) {
-                            if (err) console.log(err, err.stack);
-                            else console.log(data);
+                            if (err) {
+                                //console.log(err, err.stack);
+                                resolve(callback("!cannot create item on dynamo db", null));
+                            }
+                            else {
+                                //console.log(data);
+                                console.log("Succes Create Item");
+                                resolve(callback(null, event));
+                            }
 
                         });
 
 
-                        resolve(callback(null, event));
                     }
                 })
                 .catch(err => {
                     console.log("we cannot list user with the same email");
                     console.log(err);
-                    reject();
+                    resolve(callback("!we cannot list user with the same email", null));
                 });
 
 
