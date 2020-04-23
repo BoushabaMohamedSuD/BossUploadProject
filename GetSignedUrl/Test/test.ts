@@ -1,10 +1,26 @@
+
+//////////////////////////////////////
+
+//    DONT FORGET TO ADD CONTENT TYPE IN THE HEADER
+//    
+
+
+///////////////////////////////
+
+
+
 const AWS = require("aws-sdk");
 var s3 = new AWS.S3();
 var fs = require('fs');
 const axios = require('axios').default;
-var FormData = require('form-data');
+//var FormData = require('form-data');
 
-var params = { Bucket: 'public-bossuplaod', Key: 'Datacenter.pdf', Expires: 300 };
+var params = {
+    Bucket: 'public-bossuplaod',
+    Key: 'Test1/Datacenter.pdf',
+    ContentType: "multipart/form-data",
+    Expires: 3600
+};
 s3.getSignedUrl('putObject', params, function (err, url) {
     if (err) {
         console.log(err);
@@ -74,3 +90,19 @@ fs.readFile('C:\\Users\\mohamed\\Downloads\\Datacenter.pdf', function (err, cont
 
 });*/
 
+
+/*
+var params = {
+    Bucket: 'public-bossuplaod',
+    Fields: {
+        key: 'Datacenter.pdf',
+        expiration: 3600,
+    }
+};
+s3.createPresignedPost(params, function (err, data) {
+    if (err) {
+        console.error('Presigning post data encountered an error', err);
+    } else {
+        console.log('The post data is', data);
+    }
+});*/
