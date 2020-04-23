@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+const dynamodb = new AWS.DynamoDB();
 
 
 //for getting the the user that is already signup 
@@ -78,6 +79,33 @@ export async function lambdaHandler(event, context, callback) {
                     } else {
                         //no user with the same email exist 
                         //so we accept sign up
+                        //and we create an iteme on the table
+
+                        let params = {
+                            Item: {
+                                "email": {
+                                    S: event.request.userAttributes.email
+                                },
+                                "status": {
+                                    S: "Normal"
+                                },
+                                "size_consumed": {
+                                    N: "0"
+                                },
+                                "size_allowed": {
+                                    N: "1073741824"
+                                }
+                            },
+                            ReturnConsumedCapacity: "TOTAL",
+                            TableName: "Users_Info"
+                        };
+                        dynamodb.putItem(params, function (err, data) {
+                            if (err) console.log(err, err.stack);
+                            else console.log(data);
+
+                        });
+
+
                         console.log('user not found, skip.');
                         resolve(callback(null, event));
                     }
@@ -113,6 +141,32 @@ export async function lambdaHandler(event, context, callback) {
                     } else {
                         console.log('good  user with the same email not found');
                         console.log('skip');
+
+                        let params = {
+                            Item: {
+                                "email": {
+                                    S: event.request.userAttributes.email
+                                },
+                                "status": {
+                                    S: "Normal"
+                                },
+                                "size_consumed": {
+                                    N: "0"
+                                },
+                                "size_allowed": {
+                                    N: "1073741824"
+                                }
+                            },
+                            ReturnConsumedCapacity: "TOTAL",
+                            TableName: "Users_Info"
+                        };
+                        dynamodb.putItem(params, function (err, data) {
+                            if (err) console.log(err, err.stack);
+                            else console.log(data);
+
+                        });
+
+
                         resolve(callback(null, event));
                     }
                 })

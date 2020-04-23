@@ -1,4 +1,4 @@
-
+/*
 const AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
@@ -19,4 +19,4 @@ let userRs = getUserByEmail("us-east-1_O7DI3N3AY",
     .then(data => console.log(data))
     .catch(err => console.log(err));
 
-console.log("fin test");
+console.log("fin test");*/

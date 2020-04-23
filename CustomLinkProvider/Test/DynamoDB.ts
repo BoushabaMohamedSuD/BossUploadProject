@@ -1,7 +1,7 @@
-let AWS = require("aws-sdk");
+/*let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 var dynamodb = new AWS.DynamoDB();
-
+*/
 /*
 var params = {
     Key: {
@@ -43,6 +43,8 @@ dynamodb.putItem(params, function (err, data) {
 
 });*/
 
+
+/*
 var params = {
     ExpressionAttributeNames: {
         "#AT": "Max",
@@ -70,4 +72,4 @@ dynamodb.updateItem(params, function (err, data) {
     if (err) console.log(err, err.stack);
     else console.log(data);
 
-});
+});*/
