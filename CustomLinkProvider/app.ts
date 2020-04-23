@@ -56,22 +56,37 @@ export async function lambdaHandler(event, context, callback) {
                     if (userRs && userRs.Users.length == 1) {
                         console.log("we fund user with the same email");
                         console.log("begun linking")
-                        // we link her the user who sign up with the ednetity provider
-                        //with the internall user
-                        //cause we allow just one email
+                        //check if userStatus is confirmed
 
-                        const [providerName, providerUserId] = event.userName.split('_') // event userName example: "Facebook_12324325436"
-                        linkProviderToUser(userRs.Users[0].Username, event.userPoolId, providerName, providerUserId)
-                            .then(resp => {
-                                console.log("link success");
-                                console.log(resp);
-                                resolve(callback(null, event));
-                            })
-                            .catch(err => {
-                                console.log("link failed");
-                                console.log(err);
-                                reject();
-                            });
+                        if (userRs.Users[0].UserStatus == "CONFIRMED") {
+                            console.log("user is confirmed");
+                            //user is confirmed
+                            // we link her the user who sign up with the ednetity provider
+                            //with the internall user
+                            //cause we allow just one email
+
+                            const [providerName, providerUserId] = event.userName.split('_') // event userName example: "Facebook_12324325436"
+                            linkProviderToUser(userRs.Users[0].Username, event.userPoolId, providerName, providerUserId)
+                                .then(resp => {
+                                    console.log("link success");
+                                    console.log(resp);
+                                    resolve(callback(null, event));
+                                })
+                                .catch(err => {
+                                    console.log("link failed");
+                                    console.log(err);
+                                    reject();
+                                });
+                        } else {
+                            //user is not confirmed
+                            console.log("user is not confirmed");
+                            reject();
+
+                        }
+
+
+
+
                     } else if (userRs && userRs.Users.length > 1) {
                         console.log("multiple user with the same email")
                         console.log("this is an error");

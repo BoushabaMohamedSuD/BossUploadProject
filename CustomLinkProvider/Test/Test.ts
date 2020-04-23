@@ -1,4 +1,4 @@
-/*
+
 const AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
@@ -14,9 +14,9 @@ let getUserByEmail = async (userPoolId, email) => {
 }
 
 
-let userRs = getUserByEmail("us-east-1_O7DI3N3AY",
-    "med1998yz@gmail.com")
+let userRs = getUserByEmail("us-east-1_xmlerYTkV",
+    "medY1998yz@gmail.com")
     .then(data => console.log(data))
     .catch(err => console.log(err));
 
-console.log("fin test");*/
+console.log("fin test");
