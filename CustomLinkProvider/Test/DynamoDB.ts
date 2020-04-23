@@ -2,7 +2,7 @@ let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 var dynamodb = new AWS.DynamoDB();
 
-
+/*
 var params = {
     Key: {
         "email": {
@@ -16,19 +16,22 @@ dynamodb.getItem(params, function (err, data) {
     if (err) console.log(err, err.stack);
     else console.log(data);
 
-});
+});*/
 
 /*
 var params = {
     Item: {
         "email": {
-            S: "test1@gmail.com"
+            S: "med1988yz@gmail.com"
         },
-        "Artist": {
-            S: "No One You Know"
+        "name": {
+            S: "boushaba"
         },
-        "SongTitle": {
-            S: "Call Me Today"
+        "size": {
+            N: "340"
+        },
+        "Max": {
+            N: "1024"
         }
     },
     ReturnConsumedCapacity: "TOTAL",
@@ -39,3 +42,32 @@ dynamodb.putItem(params, function (err, data) {
     else console.log(data);           // successful response
 
 });*/
+
+var params = {
+    ExpressionAttributeNames: {
+        "#AT": "Max",
+        "#Y": "Year"
+    },
+    ExpressionAttributeValues: {
+        ":t": {
+            N: "3000"
+        },
+        ":y": {
+            N: "2015"
+        }
+    },
+    Key: {
+        "email": {
+            S: "med1988yz@gmail.com"
+        },
+
+    },
+    ReturnValues: "ALL_NEW",
+    TableName: "Users_Info",
+    UpdateExpression: "SET #Y = :y, #AT = :t"
+};
+dynamodb.updateItem(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+
+});
