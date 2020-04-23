@@ -40,6 +40,22 @@ Resources:
                         Path: /
                         Method: get
                         RestApiId: !Ref ApiGatewayApi
+
+     HelloWorldFunctionSecure:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/hello-world/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /Secure
+                        Method: get
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth
                        
                        
 
