@@ -41,7 +41,7 @@ Resources:
                         Method: get
                         RestApiId: !Ref ApiGatewayApi
 
-     HelloWorldFunctionSecure:
+    HelloWorldFunctionSecure:
         Type: AWS::Serverless::Function 
         Properties:
             CodeUri: dist/hello-world/
