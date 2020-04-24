@@ -1,7 +1,7 @@
 
 export interface ResponsibilitiesHolder {
 
-    setNextChaine: (chaine: ResponsibilitiesHolder) => void;
+    setNextChaine: (chaine: ResponsibilitiesHolder) => ResponsibilitiesHolder;
     process: () => Promise<any>;
 
 }

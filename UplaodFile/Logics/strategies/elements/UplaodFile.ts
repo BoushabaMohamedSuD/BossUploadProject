@@ -1,3 +1,4 @@
+import { GeneratorUrl } from './../../responsibilities/elements/GeneratorUrl';
 import { Filter } from './../../responsibilities/elements/Filter';
 import { FetchData } from './../../responsibilities/elements/FetchData';
 import { ResponsibilitiesHolder } from './../../responsibilities/holders/ResponsibilitiesHolder';
@@ -10,8 +11,12 @@ export class UplaodFile implements StrategiesHolder {
         this.event = event;
         this.treatment(this.event, this.data);
 
-        this.chaine = new FetchData(this.data)
-            .setNextChaine(new Filter(this.data));
+        this.chaine = new FetchData(this.data);
+
+        this.chaine
+            .setNextChaine(new Filter(this.data))
+            .setNextChaine(new GeneratorUrl(this.data));;
+
 
     }
 
