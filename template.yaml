@@ -21,7 +21,7 @@ Resources:
                 DefaultAuthorizer: MyCognitoAuth 
                 Authorizers:
                     MyCognitoAuth:
-                        UserPoolArn: arn:aws:cognito-idp:us-east-1:265267535237:userpool/us-east-1_QHWGlX2sq
+                        UserPoolArn: arn:aws:cognito-idp:us-east-1:265267535237:userpool/us-east-1_xmlerYTkV
                         Identity: 
                             Header: Authorization 
               

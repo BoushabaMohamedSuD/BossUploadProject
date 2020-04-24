@@ -78,9 +78,9 @@ export class UplaodFile implements StrategiesHolder {
     };
 
     private treatment(): void {
-        this.data.request.email = this.event.data.context.email;
-        this.data.request.key = this.event.data.context.data.key;
-        this.data.request.folder = this.event.data.context.data.folder;
+        this.data.request.email = this.event.context.email;
+        this.data.request.key = this.event.context.data.key;
+        this.data.request.folder = this.event.context.data.folder;
         console.log(this.data);
 
     }
