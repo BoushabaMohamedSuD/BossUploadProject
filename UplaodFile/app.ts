@@ -55,7 +55,7 @@ export async function lambdaHandler(event, context) {
                 response = {
                     'statusCode': 400,
                     'body': JSON.stringify({
-                        error: "custom error",
+                        error: err,
                     })
                 };
                 return response;

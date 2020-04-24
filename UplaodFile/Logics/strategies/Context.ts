@@ -10,14 +10,16 @@ export class Context {
     public process(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.strategy.process()
-                .then((resp) => {
-                    if (resp) {
-                        resolve(true);
+                .then((data) => {
+                    if (data != null) {
+                        resolve(data);
+                    } else {
+                        reject("data is null")
                     }
-                    reject(false)
+
                 })
                 .catch((err) => {
-                    reject(false);
+                    reject(err);
                 });
 
 
