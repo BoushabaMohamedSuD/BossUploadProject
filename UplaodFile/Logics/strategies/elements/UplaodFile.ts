@@ -30,12 +30,13 @@ export class UplaodFile implements StrategiesHolder {
                         //if the response is true we resolve data
                         resolve(this.data);
                     } else {
-
+                        // if not some of resp fails
                         reject("some of respo fails");
 
                     }
                 })
                 .catch(err => {
+                    //some of respo reject an error
                     reject(err);
                 });
 
