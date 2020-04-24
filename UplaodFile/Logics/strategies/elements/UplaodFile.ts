@@ -1,3 +1,4 @@
+import { Filter } from './../../responsibilities/elements/Filter';
 import { FetchData } from './../../responsibilities/elements/FetchData';
 import { ResponsibilitiesHolder } from './../../responsibilities/holders/ResponsibilitiesHolder';
 import { StrategiesHolder } from './../holders/StrategiesHolder';
@@ -8,7 +9,9 @@ export class UplaodFile implements StrategiesHolder {
     constructor(event: any) {
         this.event = event;
         this.treatment(this.event, this.data);
-        this.chaine = new FetchData(this.data);
+
+        this.chaine = new FetchData(this.data)
+            .setNextChaine(new Filter(this.data));
 
     }
 
