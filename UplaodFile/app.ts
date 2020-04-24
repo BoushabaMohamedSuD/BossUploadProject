@@ -46,7 +46,7 @@ export async function lambdaHandler(event, context) {
                 response = {
                     'statusCode': 200,
                     'body': JSON.stringify({
-                        function: "uplaod",
+                        data: data,
                     })
                 };
                 return response;

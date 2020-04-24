@@ -3,8 +3,8 @@ import { StrategiesHolder } from './holders/StrategiesHolder';
 
 export class Context {
     private strategy!: StrategiesHolder;
-    constructor(rastrategys: StrategiesHolder) {
-        this.strategy = this.strategy;
+    constructor(strategy: StrategiesHolder) {
+        this.strategy = strategy;
     }
 
     public process(): Promise<any> {

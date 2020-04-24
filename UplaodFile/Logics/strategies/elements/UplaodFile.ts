@@ -4,7 +4,7 @@ export class UplaodFile implements StrategiesHolder {
     private data: any;
     constructor(event: any) {
         this.event = event
-        this.treatment()
+        this.treatment(this.event, this.data)
     }
 
     public process(): Promise<any> {
@@ -13,7 +13,7 @@ export class UplaodFile implements StrategiesHolder {
         })
     };
 
-    private treatment(): void {
+    private treatment(event: any, data: any): void {
         // custom mapping event to data
     }
 
