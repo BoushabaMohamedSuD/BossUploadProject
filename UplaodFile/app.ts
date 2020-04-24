@@ -1,3 +1,5 @@
+import { UplaodFile } from './Logics/strategies/elements/UplaodFile';
+import { Context } from './Logics/strategies/Context';
 
 let response;
 
@@ -35,18 +37,34 @@ let response;
  * @returns {Object} object.body - JSON Payload to be returned
  * 
  */
+
 export async function lambdaHandler(event, context) {
     try {
-        response = {
-            'statusCode': 200,
-            'body': JSON.stringify({
-                function: "uplaod",
+        new Context(new UplaodFile(event))
+            .process()
+            .then((data: any) => {
+                response = {
+                    'statusCode': 200,
+                    'body': JSON.stringify({
+                        function: "uplaod",
+                    })
+                };
+                return response;
             })
-        }
+            .catch((err) => {
+                response = {
+                    'statusCode': 400,
+                    'body': JSON.stringify({
+                        error: "custom error",
+                    })
+                };
+                return response;
+            });
+
     } catch (err) {
         console.log(err);
         return err;
     }
 
-    return response
+
 };

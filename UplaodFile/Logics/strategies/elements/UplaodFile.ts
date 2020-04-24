@@ -1,8 +1,10 @@
 import { StrategiesHolder } from './../holders/StrategiesHolder';
 export class UplaodFile implements StrategiesHolder {
-
-    constructor() {
-
+    private event: any;
+    private data: any;
+    constructor(event: any) {
+        this.event = event
+        this.treatment()
     }
 
     public process(): Promise<any> {
@@ -10,5 +12,10 @@ export class UplaodFile implements StrategiesHolder {
 
         })
     };
+
+    private treatment(): void {
+        // custom mapping event to data
+    }
+
 
 }
