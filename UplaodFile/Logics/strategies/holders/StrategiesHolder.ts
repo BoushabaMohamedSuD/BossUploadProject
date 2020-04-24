@@ -1,5 +1,5 @@
 export interface StrategiesHolder {
 
-    process: () => Promise<boolean>;
+    process: () => Promise<any>;
 
 }
