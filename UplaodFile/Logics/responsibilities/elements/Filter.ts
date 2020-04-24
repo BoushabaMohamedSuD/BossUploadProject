@@ -35,8 +35,8 @@ export class Filter implements ResponsibilitiesHolder {
 
                         })
                         .catch((err) => {
-                            console.log(err);
-                            console.log('Error');
+                            //console.log(err);
+                            //console.log('Error');
                             reject(err);
                         });
                 } else {
