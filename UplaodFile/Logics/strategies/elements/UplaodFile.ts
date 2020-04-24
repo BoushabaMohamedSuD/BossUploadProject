@@ -6,10 +6,44 @@ import { StrategiesHolder } from './../holders/StrategiesHolder';
 export class UplaodFile implements StrategiesHolder {
     private chaine!: ResponsibilitiesHolder;
     private event: any;
-    private data: any;
+    private data: {
+        request: {
+            email: string,
+            key: string,
+            folder: string,
+        },
+        data: {
+            status: string,
+            maxSize: number,
+            fileSize: number,
+            expirationDate: number,
+        },
+        response: {
+            url: String,
+        }
+
+    };
     constructor(event: any) {
         this.event = event;
-        this.treatment(this.event, this.data);
+        this.data = {
+            request: {
+                email: "",
+                key: "",
+                folder: "",
+            },
+            data: {
+                status: "",
+                maxSize: 0,
+                fileSize: 0,
+                expirationDate: 0,
+            },
+            response: {
+                url: "",
+            }
+        };
+
+
+        this.treatment();
 
         this.chaine = new FetchData(this.data);
 
@@ -43,8 +77,12 @@ export class UplaodFile implements StrategiesHolder {
         })
     };
 
-    private treatment(event: any, data: any): void {
-        // custom mapping event to data
+    private treatment(): void {
+        this.data.request.email = this.event.data.context.email;
+        this.data.request.key = this.event.data.context.data.key;
+        this.data.request.folder = this.event.data.context.data.folder;
+        console.log(this.data);
+
     }
 
 
