@@ -44,6 +44,7 @@ export async function lambdaHandler(event, context) {
         const ret = await axios(url);
         consoleLogSomething();
         let name: string = new Name().getName();
+        console.log(event);
         response = {
             'statusCode': 200,
             'body': JSON.stringify({
@@ -51,6 +52,7 @@ export async function lambdaHandler(event, context) {
                 location: ret.data.trim(),
                 name: name,
                 micor: "micor",
+                event: event
             })
         }
     } catch (err) {
