@@ -41,17 +41,18 @@ let response;
  */
 export async function lambdaHandler(event, context) {
     try {
-        const ret = await axios(url);
+        //const ret = await axios(url);
         consoleLogSomething();
         let name: string = new Name().getName();
         console.log(event);
         response = {
             'statusCode': 200,
             'body': JSON.stringify({
-                message: echoThisString('hello world'),
-                location: ret.data.trim(),
+                message: echoThisString('hello world Event '),
+                // location: ret.data.trim(),
                 name: event.body.name,
                 email: event.requestContext.authorizer.claims.email,
+                body: event.body
             })
         }
     } catch (err) {

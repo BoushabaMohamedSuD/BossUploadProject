@@ -78,10 +78,10 @@ export class UplaodFile implements StrategiesHolder {
     };
 
     private treatment(): void {
-        this.data.request.email = this.event.context.email;
-        this.data.request.key = this.event.context.data.key;
-        this.data.request.folder = this.event.context.data.folder;
-        this.data.request.fileSize = this.event.context.data.fileSize;
+        this.data.request.email = this.event.requestContext.authorizer.claims.email;
+        this.data.request.key = this.event.body.data.key;
+        this.data.request.folder = this.event.body.data.folder;
+        this.data.request.fileSize = this.event.body.data.fileSize;
         console.log(this.data);
 
     }
