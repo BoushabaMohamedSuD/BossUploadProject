@@ -26,6 +26,8 @@ console.log("fin test");*/
 const AWS = require("aws-sdk");
 var s3 = new AWS.S3();
 
+
+/*
 //the body dosn't matter
 var params = { Bucket: 'private-bossupload', Key: 'folderInBucket/', Body: '' };
 
@@ -36,6 +38,19 @@ s3.upload(params, function (err, data) {
         console.log("Successfully created a folder on S3");
 
     }
+});*/
+
+
+
+var params = {
+    Bucket: "private-bossupload",
+    //MaxKeys: 2
+};
+s3.listObjects(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+
+
 });
 
 
