@@ -50,9 +50,9 @@ export async function lambdaHandler(event, context) {
             'body': JSON.stringify({
                 message: echoThisString('hello world Event '),
                 // location: ret.data.trim(),
-                name: event.body.name,
+                name: JSON.parse(event.body).name,
                 email: event.requestContext.authorizer.claims.email,
-                body: event.body
+                body: JSON.parse(event.body)
             })
         }
     } catch (err) {

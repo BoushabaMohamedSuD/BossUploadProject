@@ -1,4 +1,9 @@
-let AWS = require("aws-sdk");
+
+
+let output = JSON.parse('{ \r\n\t\"name\":\"nodejs ta3 boushaba\"\r\n}').name;
+console.log(output)
+
+/*let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 var dynamodb = new AWS.DynamoDB();
 
@@ -21,7 +26,7 @@ dynamodb.getItem(params, (err, data) => {
     };
 
 });
-
+*/
 /*
 var params = {
     Item: {
