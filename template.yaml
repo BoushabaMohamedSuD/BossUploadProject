@@ -52,7 +52,7 @@ Resources:
                     Type: Api 
                     Properties:
                         Path: /Secure
-                        Method: get
+                        Method: post
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth

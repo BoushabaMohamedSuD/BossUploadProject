@@ -1,22 +1,26 @@
-/*let AWS = require("aws-sdk");
+let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 var dynamodb = new AWS.DynamoDB();
-*/
-/*
+
+
 var params = {
     Key: {
         "email": {
-            S: "test1@gmail.com"
+            S: "med1998yz@gmail.com"
         },
     },
     TableName: "Users_Info"
 };
 
-dynamodb.getItem(params, function (err, data) {
+dynamodb.getItem(params, (err, data) => {
     if (err) console.log(err, err.stack);
-    else console.log(data);
+    else {
+        console.log(data);
+        console.log(data.Item.email);
+        console.log(data.Item.email.S);
+    };
 
-});*/
+});
 
 /*
 var params = {

@@ -11,12 +11,12 @@ export class UplaodFile implements StrategiesHolder {
             email: string,
             key: string,
             folder: string,
+            fileSize: number,
         },
         data: {
             status: string,
             maxSize: number,
-            fileSize: number,
-            expirationDate: number,
+            consSize: number,
         },
         response: {
             url: String,
@@ -30,12 +30,12 @@ export class UplaodFile implements StrategiesHolder {
                 email: "",
                 key: "",
                 folder: "",
+                fileSize: 0,
             },
             data: {
                 status: "",
                 maxSize: 0,
-                fileSize: 0,
-                expirationDate: 0,
+                consSize: 0,
             },
             response: {
                 url: "",
@@ -62,7 +62,7 @@ export class UplaodFile implements StrategiesHolder {
                     //resp true or false
                     if (resp) {
                         //if the response is true we resolve data
-                        resolve(this.data);
+                        resolve(this.data.response);
                     } else {
                         // if not some of resp fails
                         reject("some of respo fails");
@@ -81,6 +81,7 @@ export class UplaodFile implements StrategiesHolder {
         this.data.request.email = this.event.context.email;
         this.data.request.key = this.event.context.data.key;
         this.data.request.folder = this.event.context.data.folder;
+        this.data.request.fileSize = this.event.context.data.fileSize;
         console.log(this.data);
 
     }
