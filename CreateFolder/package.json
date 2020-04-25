@@ -1,0 +1,33 @@
+{
+  "name": "createfolder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.17.14",
+    "aws-sdk": "^2.659.0"
+  },
+  "scripts": {
+    "prebuild": "mkdirp ../dist || true",
+    "build-watch": "npm run prebuild && npm run copy-dependencies copy-packgeJson && tsc -w --preserveWatchOutput true",
+    "build": "npm run prebuild && npm run copy-dependencies && npm run copy-packgeJson  && tsc",
+    "build-micor": "tsc",
+    "copy-packgeJson": "cpx \"./package.json\" ../dist/UplaodFile/",
+    "copy-dependencies": "cpx \"./node_modules/**/*\" ../dist/UplaodFile/node_modules",
+    "test": "mocha --require ts-node/register ./**/*.spec.ts",
+    "start-api": "concurrently --kill-others --kill-others-on-fail \"npm run build-watch\" \"sam local start-api --template ../template.yaml\""
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.8",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.1.2",
+    "concurrently": "^4.1.2",
+    "cpx": "^1.5.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^5.1.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
