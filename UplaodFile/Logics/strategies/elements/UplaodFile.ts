@@ -11,6 +11,7 @@ export class UplaodFile implements StrategiesHolder {
             email: string,
             key: string,
             folder: string,
+            type: string,
             fileSize: number,
         },
         data: {
@@ -30,6 +31,7 @@ export class UplaodFile implements StrategiesHolder {
                 email: "",
                 key: "",
                 folder: "",
+                type: "",
                 fileSize: 0,
             },
             data: {
@@ -83,6 +85,7 @@ export class UplaodFile implements StrategiesHolder {
         this.data.request.key = body.key;
         this.data.request.folder = body.folder;
         this.data.request.fileSize = body.fileSize;
+        this.data.request.type = body.type;
         console.log(this.data);
 
     }

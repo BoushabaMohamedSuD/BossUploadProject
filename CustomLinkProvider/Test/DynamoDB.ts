@@ -1,7 +1,7 @@
 
-
+/*-
 let output = JSON.parse('{ \r\n\t\"name\":\"nodejs ta3 boushaba\"\r\n}').name;
-console.log(output)
+console.log(output)*/
 
 /*let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
