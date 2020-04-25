@@ -40,7 +40,7 @@ let response;
 
 
 const AWS = require("aws-sdk");
-var s3 = new AWS.S3();
+const s3 = new AWS.S3();
 
 
 export async function lambdaHandler(event, context) {
