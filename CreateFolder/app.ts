@@ -52,33 +52,49 @@ export async function lambdaHandler(event, context) {
         let folder = body.folder;
         let params;
 
+        //body don't matter in this case 
 
-        params = { Bucket: type + '-bossupload', Key: email + '/' + folder + '/', Body: '' };
+        if (folder != "") {
+            params = { Bucket: type + '-bossupload', Key: email + '/' + folder + '/', Body: '' };
 
-        s3.upload(params, (err, data) => {
-            if (err) {
-                console.log("Error creating the folder: ", err);
-                response = {
-                    'statusCode': 400,
-                    'body': JSON.stringify({
-                        data: "we cannot get url",
-                        err: err,
-                    })
-                };
-                return response;
-            } else {
-                console.log("Successfully created a folder on S3");
-                console.log('The URL is');
-                response = {
-                    'statusCode': 200,
-                    'body': JSON.stringify({
-                        data: true,
-                    })
-                };
-                return response;
+            s3.upload(params, (err, data) => {
+                if (err) {
+                    console.log("Error creating the folder: ", err);
+                    response = {
+                        'statusCode': 400,
+                        'body': JSON.stringify({
+                            data: "we cannot get url",
+                            err: err,
+                        })
+                    };
+                    return response;
+                } else {
+                    console.log("Successfully created a folder on S3");
+                    console.log('The URL is');
+                    response = {
+                        'statusCode': 200,
+                        'body': JSON.stringify({
+                            data: true,
+                        })
+                    };
+                    return response;
 
-            }
-        });
+                }
+            });
+
+        } else {
+            response = {
+                'statusCode': 400,
+                'body': JSON.stringify({
+                    data: "folder name is empty",
+                    err: false,
+                })
+            };
+            return response;
+
+        }
+
+
 
 
 
