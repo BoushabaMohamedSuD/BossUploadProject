@@ -50,12 +50,23 @@ export async function lambdaHandler(event, context) {
         let body = JSON.parse(event.body);
         let email = event.requestContext.authorizer.claims.email;
         let type = body.type;
+        let folder = body.folder
         let params;
 
-        params = {
-            Bucket: type + "-bossupload",
-            //MaxKeys: 2
-        };
+        if (folder != "") {
+            params = {
+                Bucket: type + "-bossupload",
+                Prefix: email + "/" + folder,
+                //MaxKeys: 2
+            };
+        } else {
+            params = {
+                Bucket: type + "-bossupload",
+                Prefix: email
+                //MaxKeys: 2
+            };
+        }
+
         s3.listObjects(params, (err, data) => {
             if (err) {
                 console.log(err, err.stack);

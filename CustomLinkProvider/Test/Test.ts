@@ -41,9 +41,14 @@ s3.upload(params, function (err, data) {
 });*/
 
 
+let key = "Test1";
+
+let nameT = "mohamed";
+let type = "private";
 
 var params = {
-    Bucket: "private-bossupload",
+    Bucket: type + "-bossupload",
+    Prefix: key + "/" + nameT,
     //MaxKeys: 2
 };
 s3.listObjects(params, function (err, data) {
