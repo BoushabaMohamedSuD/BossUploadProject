@@ -1,5 +1,5 @@
 
-const AWS = require("aws-sdk");
+/*const AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
@@ -19,4 +19,23 @@ let userRs = getUserByEmail("us-east-1_xmlerYTkV",
     .then(data => console.log(data))
     .catch(err => console.log(err));
 
-console.log("fin test");
+console.log("fin test");*/
+
+
+
+const AWS = require("aws-sdk");
+var s3 = new AWS.S3();
+
+//the body dosn't matter
+var params = { Bucket: 'private-bossupload', Key: 'folderInBucket/', Body: '' };
+
+s3.upload(params, function (err, data) {
+    if (err) {
+        console.log("Error creating the folder: ", err);
+    } else {
+        console.log("Successfully created a folder on S3");
+
+    }
+});
+
+
