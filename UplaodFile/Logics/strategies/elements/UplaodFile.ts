@@ -18,6 +18,7 @@ export class UplaodFile implements StrategiesHolder {
             status: string,
             maxSize: number,
             consSize: number,
+            keys: { key: string }[],
         },
         response: {
             url: String,
@@ -38,6 +39,7 @@ export class UplaodFile implements StrategiesHolder {
                 status: "",
                 maxSize: 0,
                 consSize: 0,
+                keys: new Array(),
             },
             response: {
                 url: "",
