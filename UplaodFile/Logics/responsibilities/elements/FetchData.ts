@@ -1,7 +1,7 @@
 import { ResponsibilitiesHolder } from './../holders/ResponsibilitiesHolder';
 let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
-var dynamodb = new AWS.DynamoDB();
+let dynamodb = new AWS.DynamoDB();
 export class FetchData implements ResponsibilitiesHolder {
 
     private Nextchaine!: ResponsibilitiesHolder;
