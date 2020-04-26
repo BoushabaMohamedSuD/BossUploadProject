@@ -52,6 +52,8 @@ let params = {
     //MaxKeys: 2
 };
 
+
+
 let objects = new Array();
 console.log(params)
 s3.listObjects(params, function (err, data) {
