@@ -101,6 +101,7 @@ export async function lambdaHandler(event, context) {
                         data: true,
                     })
                 };
+                return response;
             }
 
         });
