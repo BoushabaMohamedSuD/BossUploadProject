@@ -41,14 +41,14 @@ s3.upload(params, function (err, data) {
 });*/
 
 
-let key = "Test";
+let key = "";
 
 let nameT = "mohamed";
 let type = "public";
 
 let params = {
     Bucket: type + "-bossuplaod",
-    Prefix: key + "/",
+    //Prefix: key + "/",
     //MaxKeys: 2
 };
 
@@ -61,29 +61,29 @@ s3.listObjects(params, function (err, data) {
         console.log(err, err.stack);
     }
     else {
-        console.log(data);
-        /* data.Contents.forEach(element => {
-             let object = {
-                 Key: element.Key
-             };
-             objects.push(object);
- 
-         });
-         //console.log(objects);
-         let paramst = {
-             Bucket: "public-bossuplaod",
-             Delete: {
-                 Objects: objects,
-                 Quiet: false
-             }
-         };
-         console.log(paramst.Delete)
- 
-         s3.deleteObjects(paramst, (err, data) => {
-             if (err) console.log(err, err.stack); // an error occurred
-             else console.log(data);           // successful response
- 
-         });*/
+        // console.log(data);
+        data.Contents.forEach(element => {
+            let object = {
+                Key: element.Key
+            };
+            objects.push(object);
+
+        });
+        console.log(objects);
+        /*  let paramst = {
+              Bucket: "public-bossuplaod",
+              Delete: {
+                  Objects: objects,
+                  Quiet: false
+              }
+          };
+          console.log(paramst.Delete)
+  
+          s3.deleteObjects(paramst, (err, data) => {
+              if (err) console.log(err, err.stack); // an error occurred
+              else console.log(data);           // successful response
+  
+          });*/
 
     };
 
