@@ -40,26 +40,58 @@ s3.upload(params, function (err, data) {
     }
 });*/
 
-/*
-let key = "Test1";
+
+let key = "Test";
 
 let nameT = "mohamed";
-let type = "private";
+let type = "public";
 
-var params = {
-    Bucket: type + "-bossupload",
-    Prefix: key + "/" + nameT,
+let params = {
+    Bucket: type + "-bossuplaod",
+    Prefix: key + "/",
     //MaxKeys: 2
 };
+
+let objects = new Array();
+console.log(params)
 s3.listObjects(params, function (err, data) {
-    if (err) console.log(err, err.stack);
-    else console.log(data);
+    if (err) {
+        console.log(err, err.stack);
+    }
+    else {
+        //console.log(data);
+        data.Contents.forEach(element => {
+            let object = {
+                Key: element.Key
+            };
+            objects.push(object);
+
+        });
+        //console.log(objects);
+        let paramst = {
+            Bucket: "public-bossuplaod",
+            Delete: {
+                Objects: objects,
+                Quiet: false
+            }
+        };
+        console.log(paramst.Delete)
+
+        s3.deleteObjects(paramst, (err, data) => {
+            if (err) console.log(err, err.stack); // an error occurred
+            else console.log(data);           // successful response
+
+        });
+
+    };
 
 
-});*/
+});
 
 
-var params = {
+/*
+
+var paramst = {
     Bucket: "public-bossuplaod",
     Delete: {
         Objects: [
@@ -69,26 +101,13 @@ var params = {
         ],
         Quiet: false
     }
-};
+};*/
+/*
 s3.deleteObjects(params, function (err, data) {
     if (err) console.log(err, err.stack); // an error occurred
     else console.log(data);           // successful response
-    /*
-    data = {
-     Deleted: [
-        {
-       DeleteMarker: true, 
-       DeleteMarkerVersionId: "A._w1z6EFiCF5uhtQMDal9JDkID9tQ7F", 
-       Key: "objectkey1"
-      }, 
-        {
-       DeleteMarker: true, 
-       DeleteMarkerVersionId: "iOd_ORxhkKe_e8G8_oSGxt2PjsCZKlkt", 
-       Key: "objectkey2"
-      }
-     ]
-    }
-    */
+
 });
 
 
+*/
