@@ -40,7 +40,7 @@ s3.upload(params, function (err, data) {
     }
 });*/
 
-
+/*
 let key = "Test1";
 
 let nameT = "mohamed";
@@ -56,6 +56,39 @@ s3.listObjects(params, function (err, data) {
     else console.log(data);
 
 
+});*/
+
+
+var params = {
+    Bucket: "public-bossuplaod",
+    Delete: {
+        Objects: [
+            {
+                Key: "Test/**"
+            }
+        ],
+        Quiet: false
+    }
+};
+s3.deleteObjects(params, function (err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else console.log(data);           // successful response
+    /*
+    data = {
+     Deleted: [
+        {
+       DeleteMarker: true, 
+       DeleteMarkerVersionId: "A._w1z6EFiCF5uhtQMDal9JDkID9tQ7F", 
+       Key: "objectkey1"
+      }, 
+        {
+       DeleteMarker: true, 
+       DeleteMarkerVersionId: "iOd_ORxhkKe_e8G8_oSGxt2PjsCZKlkt", 
+       Key: "objectkey2"
+      }
+     ]
+    }
+    */
 });
 
 
