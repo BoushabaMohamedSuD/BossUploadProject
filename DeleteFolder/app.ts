@@ -49,61 +49,92 @@ export async function lambdaHandler(event, context) {
         let body = JSON.parse(event.body);
         let email = event.requestContext.authorizer.claims.email;
         let type = body.type;
-        let key = body.key;
         let folder = body.folder;
         let params;
         if (folder != "") {
-            params = {
-                Bucket: type + '-bossupload',
-                Delete: {
-                    Objects: [
-                        {
-                            Key: email + "/" + folder + "/" + key,
-                        }
-                    ],
-                    Quiet: false
-                }
 
+            params = {
+                Bucket: type + "-bossuplaod",
+                Prefix: email + "/" + folder + "/",
+                //MaxKeys: 2
             };
+
         } else {
             params = {
-                Bucket: type + '-bossupload',
-
-                Delete: {
-                    Objects: [
-                        {
-                            Key: email + "/" + key,
-                        }
-                    ],
-                    Quiet: false
-                }
-
+                Bucket: type + "-bossuplaod",
+                Prefix: email + "/",
+                //MaxKeys: 2
             };
         }
 
-        s3.deleteObjects(params, (err, data) => {
+
+
+
+
+        let objects = new Array();
+        //console.log(params)
+        s3.listObjects(params, function (err, data) {
             if (err) {
                 console.log(err, err.stack);
                 response = {
                     'statusCode': 400,
                     'body': JSON.stringify({
-                        data: "we cannot delete object",
+                        data: "we cannot list objects",
                         err: err,
                     })
                 };
                 return response;
             }
             else {
-                console.log(data);
-                response = {
-                    'statusCode': 200,
-                    'body': JSON.stringify({
-                        data: true,
-                    })
+                //console.log(data);
+                data.Contents.forEach(element => {
+                    let object = {
+                        Key: element.Key
+                    };
+                    objects.push(object);
+
+                });
+                //console.log(objects);
+                let paramsList = {
+                    Bucket: "public-bossuplaod",
+                    Delete: {
+                        Objects: objects,
+                        Quiet: false
+                    }
                 };
-            }
+                //console.log(paramst.Delete)
+
+                s3.deleteObjects(paramsList, (err, data) => {
+                    if (err) {
+                        console.log(err, err.stack);
+                        response = {
+                            'statusCode': 400,
+                            'body': JSON.stringify({
+                                data: "we cannot delete objects",
+                                err: err,
+                            })
+                        };
+                        return response;
+                    }
+                    else {
+                        console.log(data);
+                        response = {
+                            'statusCode': 200,
+                            'body': JSON.stringify({
+                                data: true,
+                            })
+                        };
+                        return response;
+                    }
+
+                });
+
+            };
+
 
         });
+
+
     } catch (err) {
         console.log(err);
         return err;
