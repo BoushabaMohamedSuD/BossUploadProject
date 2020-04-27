@@ -1,28 +1,20 @@
 
 import { ResponsibilitiesHolder } from './../../responsibilities/holders/ResponsibilitiesHolder';
 import { StrategiesHolder } from './../holders/StrategiesHolder';
-export class UplaodFile implements StrategiesHolder {
+export class DeleteFolderDB implements StrategiesHolder {
     private chaine!: ResponsibilitiesHolder;
     private event: any;
     private data: {
         request: {
             email: string,
-            key: string,
             folder: string,
             type: string,
-            fileSize: number,
         },
         data: {
-            status: string,
-            maxSize: number,
-            consSize: number,
-            keys: {
-                key: string,
-                size: number
-            }[],
+
         },
         response: {
-            url: String,
+            resp: boolean,
         }
 
     };
@@ -31,19 +23,15 @@ export class UplaodFile implements StrategiesHolder {
         this.data = {
             request: {
                 email: "",
-                key: "",
                 folder: "",
                 type: "",
-                fileSize: 0,
+
             },
             data: {
-                status: "",
-                maxSize: 0,
-                consSize: 0,
-                keys: new Array(),
+
             },
             response: {
-                url: "",
+                resp: false,
             }
         };
 
@@ -85,14 +73,11 @@ export class UplaodFile implements StrategiesHolder {
     };
 
     private treatment(): void {
-        /* let body = JSON.parse(this.event.body);
-         this.data.request.email = this.event.requestContext.authorizer.claims.email;
-         this.data.request.key = body.key;
-         this.data.request.folder = body.folder;
-         this.data.request.fileSize = body.fileSize;
-         this.data.request.type = body.type;
-         console.log(this.data);*/
-
+        let body = JSON.parse(this.event.body);
+        this.data.request.email = this.event.requestContext.authorizer.claims.email;
+        this.data.request.folder = body.folder;
+        this.data.request.type = body.type;
+        console.log(this.data);
     }
 
 
