@@ -1,3 +1,7 @@
+import { FetchData } from './../../responsibilities/elements/FetchData';
+import { UpdateDB } from './../../responsibilities/elements/UpdateDB';
+import { DeleteObject } from './../../responsibilities/elements/DeleteObject';
+import { FetchObjectSize } from './../../responsibilities/elements/FetchObjectSize';
 
 import { ResponsibilitiesHolder } from '../../responsibilities/holders/ResponsibilitiesHolder';
 import { StrategiesHolder } from '../holders/StrategiesHolder';
@@ -47,12 +51,12 @@ export class DeleteObjectDB implements StrategiesHolder {
 
         this.treatment();
 
-        /*this.chaine = new FetchData(this.data);
+        this.chaine = new FetchData(this.data);
 
         this.chaine
-            .setNextChaine(new FetchObjects(this.data))
-            .setNextChaine(new DeleteFolder(this.data))
-            .setNextChaine(new UpdateDB(this.data));*/
+            .setNextChaine(new FetchObjectSize(this.data))
+            .setNextChaine(new DeleteObject(this.data))
+            .setNextChaine(new UpdateDB(this.data));
 
 
 
