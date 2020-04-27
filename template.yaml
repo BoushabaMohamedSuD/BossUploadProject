@@ -57,7 +57,34 @@ Resources:
                         Auth:
                           Authorizer: MyCognitoAuth
                        
-                       
+    CreateFolder:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/CreateFolder/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /S3peration
+                        Method: post
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth
+                                   
+
+
+
+
+
+
+
+
+
+
+
+
 
     CustomLinkProvider:
         Type: AWS::Serverless::Function 
