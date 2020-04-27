@@ -66,6 +66,7 @@ Resources:
             CodeUri: dist/CreateFolder/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
             Events:
                 ApiEvent:
                     Type: Api 
@@ -86,6 +87,7 @@ Resources:
             CodeUri: dist/DeleteFolderDB/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
             Events:
                 ApiEvent:
                     Type: Api 
@@ -108,6 +110,7 @@ Resources:
             CodeUri: dist/DeleteObjectDB/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
             Events:
                 ApiEvent:
                     Type: Api 
@@ -130,6 +133,7 @@ Resources:
             CodeUri: dist/DowloadFile/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
             Events:
                 ApiEvent:
                     Type: Api 
@@ -151,6 +155,7 @@ Resources:
             CodeUri: dist/ListAllObjects/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
             Events:
                 ApiEvent:
                     Type: Api 
@@ -173,6 +178,7 @@ Resources:
             CodeUri: dist/UplaodFile/
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
             Events:
                 ApiEvent:
                     Type: Api 
