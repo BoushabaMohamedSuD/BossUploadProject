@@ -18,7 +18,11 @@ export class GeneratorUrl implements ResponsibilitiesHolder {
 
     public process(): Promise<any> {
         return new Promise((resolve, reject) => {
-            // code her
+
+
+            // code here
+
+
             let email = this.data.request.email;
             let key = this.data.request.key;
             let folder = this.data.request.folder;

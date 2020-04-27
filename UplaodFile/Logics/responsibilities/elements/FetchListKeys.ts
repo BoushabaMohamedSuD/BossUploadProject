@@ -21,7 +21,7 @@ export class FetchListKeys implements ResponsibilitiesHolder {
         return new Promise((resolve, reject) => {
 
 
-            // code her
+            // code here
 
 
             let folder = this.data.request.folder;
@@ -89,12 +89,6 @@ export class FetchListKeys implements ResponsibilitiesHolder {
 
 
             });
-
-
-
-
-
-
 
 
 

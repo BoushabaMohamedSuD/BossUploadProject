@@ -18,7 +18,7 @@ export class Filter implements ResponsibilitiesHolder {
 
     public process(): Promise<any> {
         return new Promise((resolve, reject) => {
-            // code her
+            // code here
             let err: string[] = [];
             let respSize: boolean = CheckSize(this.data);
             let respStatus: boolean = CheckStatus(this.data);

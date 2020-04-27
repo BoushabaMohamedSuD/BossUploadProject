@@ -18,7 +18,7 @@ export class FetchData implements ResponsibilitiesHolder {
 
     public process(): Promise<any> {
         return new Promise((resolve, reject) => {
-            // code her
+            // code here
             var params = {
                 Key: {
                     "email": {
