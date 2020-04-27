@@ -145,7 +145,7 @@ Resources:
 
 
 
-    DowmloadFile:
+    ListAllObjects:
         Type: AWS::Serverless::Function 
         Properties:
             CodeUri: dist/ListAllObjects/
@@ -163,18 +163,32 @@ Resources:
 
 
 
+# UPLOAD FILE
+
+
+
+    UplaodFile:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/UplaodFile/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /S3peration/UplaodFile
+                        Method: post
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth 
 
 
 
 
 
 
-
-
-
-
-
-
+# CUSTOM LINK PROVIDER
 
     CustomLinkProvider:
         Type: AWS::Serverless::Function 
