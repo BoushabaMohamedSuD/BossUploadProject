@@ -56,13 +56,13 @@ export async function lambdaHandler(event, context) {
         if (folder != "") {
             params = {
                 Bucket: type + "-bossupload",
-                Prefix: email + "/" + folder,
+                Prefix: email + "/" + folder + "/",
                 //MaxKeys: 2
             };
         } else {
             params = {
                 Bucket: type + "-bossupload",
-                Prefix: email
+                Prefix: email + "/"
                 //MaxKeys: 2
             };
         }
