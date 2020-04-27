@@ -9,6 +9,7 @@ export class DeleteObjectDB implements StrategiesHolder {
             email: string,
             folder: string,
             type: string,
+            key: string,
 
         },
         data: {
@@ -32,6 +33,7 @@ export class DeleteObjectDB implements StrategiesHolder {
                 email: "",
                 folder: "",
                 type: "",
+                key: ""
 
             },
             data: {
@@ -87,6 +89,7 @@ export class DeleteObjectDB implements StrategiesHolder {
         this.data.request.email = this.event.requestContext.authorizer.claims.email;
         this.data.request.folder = body.folder;
         this.data.request.type = body.type;
+        this.data.request.key = body.key;
         console.log(this.data);
     }
 
