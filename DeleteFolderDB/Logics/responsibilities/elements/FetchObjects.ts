@@ -31,14 +31,14 @@ export class FetchObjects implements ResponsibilitiesHolder {
             if (folder != "") {
 
                 params = {
-                    Bucket: type + "-bossuplaod",
+                    Bucket: type + "-bossupload",
                     Prefix: email + "/" + folder + "/",
                     //MaxKeys: 2
                 };
 
             } else {
                 params = {
-                    Bucket: type + "-bossuplaod",
+                    Bucket: type + "-bossupload",
                     Prefix: email + "/",
                     //MaxKeys: 2
                 };
