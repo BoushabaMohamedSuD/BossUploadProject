@@ -94,7 +94,36 @@ Resources:
                         Method: delete
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
-                          Authorizer: MyCognitoAuth                               
+                          Authorizer: MyCognitoAuth       
+
+
+
+# DELETE OBJECT DB
+
+
+
+    DeleteObject:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/DeleteObjectDB/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /S3peration/deleteObject
+                        Method: delete
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth      
+
+
+
+
+
+
+
 
 
 
