@@ -82,3 +82,10 @@ dynamodb.updateItem(params, function (err, data) {
     else console.log(data);
 
 });*/
+/*
+let sizeconsumed = 15;
+
+let sizeconsumedString: string = sizeconsumed.toString();
+
+console.log(sizeconsumedString);
+console.log(typeof (sizeconsumedString));*/
