@@ -16,10 +16,7 @@ export class DeleteObjectDB implements StrategiesHolder {
             status: string,
             maxSize: number,
             consSize: number,
-            keys: {
-                key: string,
-                size: number
-            }[],
+            fileSize: number
         },
         response: {
             resp: boolean,
@@ -40,7 +37,7 @@ export class DeleteObjectDB implements StrategiesHolder {
                 status: "",
                 maxSize: 0,
                 consSize: 0,
-                keys: new Array(),
+                fileSize: 0,
             },
             response: {
                 resp: false,
