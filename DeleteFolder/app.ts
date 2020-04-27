@@ -96,7 +96,7 @@ export async function lambdaHandler(event, context) {
                 });
                 //console.log(objects);
                 let paramsList = {
-                    Bucket: "public-bossuplaod",
+                    Bucket: type + "-bossupload",
                     Delete: {
                         Objects: objects,
                         Quiet: false
