@@ -1,7 +1,7 @@
 import { ResponsibilitiesHolder } from './../holders/ResponsibilitiesHolder';
 let AWS = require("aws-sdk");
 AWS.config.update({ region: 'us-east-1' });
-const s3 = new AWS.S3();
+
 let dynamodb = new AWS.DynamoDB();
 
 
