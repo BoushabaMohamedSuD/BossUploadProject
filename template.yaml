@@ -41,6 +41,7 @@ Resources:
                         Method: get
                         RestApiId: !Ref ApiGatewayApi
 
+
     HelloWorldFunctionSecure:
         Type: AWS::Serverless::Function 
         Properties:
@@ -56,7 +57,9 @@ Resources:
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth
-                       
+
+# CREATE FOLDER 
+
     CreateFolder:
         Type: AWS::Serverless::Function 
         Properties:
@@ -67,12 +70,31 @@ Resources:
                 ApiEvent:
                     Type: Api 
                     Properties:
-                        Path: /S3peration
+                        Path: /S3peration/createFolder
                         Method: post
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth
-                                   
+
+
+
+# DELETE FOLDER DB
+
+    DeleteFolder:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/DeleteFolderDB/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /S3peration/deleteFolder
+                        Method: delete
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth                               
 
 
 
