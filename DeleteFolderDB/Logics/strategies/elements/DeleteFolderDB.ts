@@ -9,9 +9,13 @@ export class DeleteFolderDB implements StrategiesHolder {
             email: string,
             folder: string,
             type: string,
+
         },
         data: {
-
+            keys: {
+                key: string,
+                size: number
+            }[],
         },
         response: {
             resp: boolean,
@@ -28,7 +32,7 @@ export class DeleteFolderDB implements StrategiesHolder {
 
             },
             data: {
-
+                keys: new Array(),
             },
             response: {
                 resp: false,
