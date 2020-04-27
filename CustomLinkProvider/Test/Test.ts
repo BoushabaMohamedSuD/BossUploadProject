@@ -48,7 +48,7 @@ let type = "public";
 
 let params = {
     Bucket: type + "-bossuplaod",
-    //Prefix: key + "/",
+    Prefix: "Datacenter.pdf",
     //MaxKeys: 2
 };
 
@@ -61,16 +61,16 @@ s3.listObjects(params, function (err, data) {
         console.log(err, err.stack);
     }
     else {
-        //console.log(data.Contents);
-        data.Contents.forEach(element => {
-            let object = {
-                Key: element.Key,
-                size: element.Size
-            };
-            objects.push(object);
-
-        });
-        console.log(objects);
+        console.log(data.Contents);
+        /* data.Contents.forEach(element => {
+             let object = {
+                 Key: element.Key,
+                 size: element.Size
+             };
+             objects.push(object);
+ 
+         });
+         console.log(objects);*/
         /*  let paramst = {
               Bucket: "public-bossuplaod",
               Delete: {
