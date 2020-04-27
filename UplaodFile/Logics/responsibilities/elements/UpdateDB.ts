@@ -1,8 +1,7 @@
 import { ResponsibilitiesHolder } from './../holders/ResponsibilitiesHolder';
 
 const AWS = require("aws-sdk");
-var s3 = new AWS.S3();
-export class GeneratorUrl implements ResponsibilitiesHolder {
+export class UpdateDB implements ResponsibilitiesHolder {
 
     private Nextchaine!: ResponsibilitiesHolder;
     private data: any;
@@ -21,6 +20,10 @@ export class GeneratorUrl implements ResponsibilitiesHolder {
 
 
             // code here
+
+            let email = this.data.request.email;
+            let consSize = this.data.data.consSize;
+            let fileSize = data.request.fileSize;
 
 
             //if evrything is ok
