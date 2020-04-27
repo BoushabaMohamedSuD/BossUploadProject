@@ -1,3 +1,7 @@
+import { UpdateDB } from './../../responsibilities/elements/UpdateDB';
+import { DeleteFolder } from './../../responsibilities/elements/DeleteFolder';
+import { FetchData } from './../../responsibilities/elements/FetchData';
+
 import { FetchObjects } from './../../responsibilities/elements/FetchObjects';
 
 import { ResponsibilitiesHolder } from './../../responsibilities/holders/ResponsibilitiesHolder';
@@ -49,13 +53,13 @@ export class DeleteFolderDB implements StrategiesHolder {
 
         this.treatment();
 
-        this.chaine = new FetchObjects(this.data);
+        this.chaine = new FetchData(this.data);
 
-        /*this.chaine
-            .setNextChaine(new FetchListKeys(this.data))
-            .setNextChaine(new Filter(this.data))
-            .setNextChaine(new FilterUpdateObject(this.data))
-            .setNextChaine(new GeneratorUrl(this.data));;*/
+        this.chaine
+            .setNextChaine(new FetchObjects(this.data))
+            .setNextChaine(new DeleteFolder(this.data))
+            .setNextChaine(new UpdateDB(this.data));
+
 
 
     }
