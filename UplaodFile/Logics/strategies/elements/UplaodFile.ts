@@ -1,3 +1,4 @@
+import { UpdateDB } from './../../responsibilities/elements/UpdateDB';
 import { FilterUpdateObject } from './../../responsibilities/elements/FilterUpdateObject';
 import { FetchListKeys } from './../../responsibilities/elements/FetchListKeys';
 import { GeneratorUrl } from './../../responsibilities/elements/GeneratorUrl';
@@ -60,7 +61,8 @@ export class UplaodFile implements StrategiesHolder {
             .setNextChaine(new FetchListKeys(this.data))
             .setNextChaine(new Filter(this.data))
             .setNextChaine(new FilterUpdateObject(this.data))
-            .setNextChaine(new GeneratorUrl(this.data));;
+            .setNextChaine(new GeneratorUrl(this.data))
+            .setNextChaine(new UpdateDB(this.data));
 
 
     }
