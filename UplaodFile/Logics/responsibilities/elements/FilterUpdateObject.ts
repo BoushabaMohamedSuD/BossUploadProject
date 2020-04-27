@@ -28,25 +28,41 @@ export class FilterUpdateObject implements ResponsibilitiesHolder {
             let key = this.data.request.key;
             let consSize = this.data.data.consSize;
 
+            //the key of previeus file we want to update it
+            //in this cas the key is the same of the file we want to uplaod it
             let keyWantedObject;
+
+
+            //the size of the previeus file we want tu update it
+            let wantedFileSize;
+
+
 
             if (folder != "") {
                 keyWantedObject = email + "/" + folder + "/" + key;
             } else {
                 keyWantedObject = email + "/" + key;
             }
+
+
             let updateSize: boolean = false;
+
+
 
             this.data
                 .data.keys.forEach(element => {
                     if (element.key == keyWantedObject) {
+                        wantedFileSize = element.size;
                         updateSize = true;
                     }
                 });
 
             if (updateSize) {
 
-                let sizeconsumed;
+
+                //beceaus we are going to delete the previous file 
+                //we need to decrease the consumed size in userInfo table
+                let sizeconsumed = consSize - wantedFileSize;
 
                 let sizeconsumedString: string = sizeconsumed.toString()
 
@@ -70,9 +86,35 @@ export class FilterUpdateObject implements ResponsibilitiesHolder {
                     TableName: "Users_Info",
                     UpdateExpression: "SET #Y = :y"
                 };
-                dynamodb.updateItem(params, function (err, data) {
-                    if (err) console.log(err, err.stack);
-                    else console.log(data);
+                dynamodb.updateItem(params, (err, data) => {
+                    if (err) {
+                        console.log(err, err.stack);
+                        reject("we cannot update consemed size in FilterUpdateObject");
+                    }
+                    else {
+                        //if evrything is ok
+                        if (this.Nextchaine != null) {
+                            console.log('going to next chaine');
+                            this.Nextchaine.process()
+                                .then((resp) => {
+                                    // resp is her false or true
+                                    if (resp) {
+                                        resolve(resp);
+                                    } else {
+                                        reject(resp);
+                                    }
+
+                                })
+                                .catch((err) => {
+                                    //console.log(err);
+                                    //console.log('Error');
+                                    reject(err);
+                                });
+                        } else {
+                            console.log('this is the end of the chaine');
+                            resolve(true);
+                        }
+                    }
 
                 });
 

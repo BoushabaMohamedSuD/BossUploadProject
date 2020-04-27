@@ -54,7 +54,8 @@ export class FetchListKeys implements ResponsibilitiesHolder {
                     //console.log(data);
                     data.Contents.forEach(element => {
                         let object = {
-                            Key: element.Key
+                            Key: element.Key,
+                            size: element.Size
                         };
                         this.data.data.keys.push(object);
                     });
