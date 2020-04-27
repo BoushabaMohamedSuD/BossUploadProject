@@ -22,6 +22,11 @@ export class UpdateDB implements ResponsibilitiesHolder {
         return new Promise((resolve, reject) => {
             // code here
 
+            let FolderSize = 0;
+            this.data.
+                data.keys.forEach(element => {
+                    FolderSize = FolderSize + element.size;
+                });
 
             //if evrything is ok
             if (this.Nextchaine != null) {
