@@ -60,36 +60,30 @@ export class FetchObjects implements ResponsibilitiesHolder {
                         };
                         this.data.data.keys.push(object);
 
-
-
-
-                        //if evrything is ok
-                        if (this.Nextchaine != null) {
-                            console.log('going to next chaine');
-                            this.Nextchaine.process()
-                                .then((resp) => {
-                                    // resp is her false or true
-                                    if (resp) {
-                                        resolve(resp);
-                                    } else {
-                                        reject(resp);
-                                    }
-
-                                })
-                                .catch((err) => {
-                                    // console.log(err);
-                                    //console.log('Error');
-                                    reject(err);
-                                });
-                        } else {
-                            console.log('this is the end of the chaine');
-                            resolve(true);
-                        }
-
-
-
                     });
 
+                    //if evrything is ok
+                    if (this.Nextchaine != null) {
+                        console.log('going to next chaine');
+                        this.Nextchaine.process()
+                            .then((resp) => {
+                                // resp is her false or true
+                                if (resp) {
+                                    resolve(resp);
+                                } else {
+                                    reject(resp);
+                                }
+
+                            })
+                            .catch((err) => {
+                                // console.log(err);
+                                //console.log('Error');
+                                reject(err);
+                            });
+                    } else {
+                        console.log('this is the end of the chaine');
+                        resolve(true);
+                    }
 
                 };
 

@@ -60,8 +60,6 @@ export class FetchObjectSize implements ResponsibilitiesHolder {
                         .fileSize = data.Contents[0].Size
 
 
-
-
                     //if evrything is ok
                     if (this.Nextchaine != null) {
                         console.log('going to next chaine');
