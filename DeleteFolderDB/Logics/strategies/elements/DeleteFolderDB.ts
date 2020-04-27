@@ -13,6 +13,9 @@ export class DeleteFolderDB implements StrategiesHolder {
 
         },
         data: {
+            status: string,
+            maxSize: number,
+            consSize: number,
             keys: {
                 key: string,
                 size: number
@@ -33,6 +36,9 @@ export class DeleteFolderDB implements StrategiesHolder {
 
             },
             data: {
+                status: "",
+                maxSize: 0,
+                consSize: 0,
                 keys: new Array(),
             },
             response: {
