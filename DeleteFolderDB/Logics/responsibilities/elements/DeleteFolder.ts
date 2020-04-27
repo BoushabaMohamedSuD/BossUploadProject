@@ -23,28 +23,64 @@ export class DeleteFolder implements ResponsibilitiesHolder {
             // code here
 
 
-            //if evrything is ok
-            if (this.Nextchaine != null) {
-                console.log('going to next chaine');
-                this.Nextchaine.process()
-                    .then((resp) => {
-                        // resp is her false or true
-                        if (resp) {
-                            resolve(resp);
-                        } else {
-                            reject(resp);
-                        }
+            let type = this.data.request.type;
 
-                    })
-                    .catch((err) => {
-                        // console.log(err);
-                        //console.log('Error');
-                        reject(err);
-                    });
-            } else {
-                console.log('this is the end of the chaine');
-                resolve(true);
-            }
+
+            let objects = new Array();
+
+            this.data.
+                data.keys.forEach(element => {
+                    let object = {
+                        Key: element.Key
+                    };
+                    objects.push(object);
+                });
+
+            let paramsList = {
+                Bucket: type + "-bossupload",
+                Delete: {
+                    Objects: objects,
+                    Quiet: false
+                }
+            };
+
+
+
+            s3.deleteObjects(paramsList, (err, data) => {
+                if (err) {
+                    console.log(err, err.stack);
+                    reject("we cannot delete objects");
+                }
+                else {
+                    //console.log(data);
+
+                    //if evrything is ok
+                    if (this.Nextchaine != null) {
+                        console.log('going to next chaine');
+                        this.Nextchaine.process()
+                            .then((resp) => {
+                                // resp is her false or true
+                                if (resp) {
+                                    resolve(resp);
+                                } else {
+                                    reject(resp);
+                                }
+
+                            })
+                            .catch((err) => {
+                                // console.log(err);
+                                //console.log('Error');
+                                reject(err);
+                            });
+                    } else {
+                        console.log('this is the end of the chaine');
+                        resolve(true);
+                    }
+
+
+                }
+
+            });
 
 
 
