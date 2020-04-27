@@ -120,6 +120,26 @@ Resources:
 
 
 
+# DOWNLOAD FILE
+
+
+
+    DowmloadFile:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/DowloadFile/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /S3peration/downloadFile
+                        Method: get
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth 
+
 
 
 
