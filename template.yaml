@@ -141,6 +141,25 @@ Resources:
                           Authorizer: MyCognitoAuth 
 
 
+# LIST ALL OBJECTS
+
+
+
+    DowmloadFile:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/ListAllObjects/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /S3peration/ListAllObjects
+                        Method: get
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth 
 
 
 
