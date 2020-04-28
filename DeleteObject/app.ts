@@ -44,43 +44,44 @@ const s3 = new AWS.S3();
 
 
 export async function lambdaHandler(event, context) {
-    try {
 
-        let body = JSON.parse(event.body);
-        let email = event.requestContext.authorizer.claims.email;
-        let type = body.type;
-        let key = body.key;
-        let folder = body.folder;
-        let params;
-        if (folder != "") {
-            params = {
-                Bucket: type + '-bossupload',
-                Delete: {
-                    Objects: [
-                        {
-                            Key: email + "/" + folder + "/" + key,
-                        }
-                    ],
-                    Quiet: false
-                }
 
-            };
-        } else {
-            params = {
-                Bucket: type + '-bossupload',
+    let body = JSON.parse(event.body);
+    let email = event.requestContext.authorizer.claims.email;
+    let type = body.type;
+    let key = body.key;
+    let folder = body.folder;
+    let params;
+    if (folder != "") {
+        params = {
+            Bucket: type + '-bossupload',
+            Delete: {
+                Objects: [
+                    {
+                        Key: email + "/" + folder + "/" + key,
+                    }
+                ],
+                Quiet: false
+            }
 
-                Delete: {
-                    Objects: [
-                        {
-                            Key: email + "/" + key,
-                        }
-                    ],
-                    Quiet: false
-                }
+        };
+    } else {
+        params = {
+            Bucket: type + '-bossupload',
 
-            };
-        }
+            Delete: {
+                Objects: [
+                    {
+                        Key: email + "/" + key,
+                    }
+                ],
+                Quiet: false
+            }
 
+        };
+    }
+
+    return new Promise((resolve, reject) => {
         s3.deleteObjects(params, (err, data) => {
             if (err) {
                 console.log(err, err.stack);
@@ -91,7 +92,7 @@ export async function lambdaHandler(event, context) {
                         err: err,
                     })
                 };
-                return response;
+                resolve(response);
             }
             else {
                 console.log(data);
@@ -101,14 +102,14 @@ export async function lambdaHandler(event, context) {
                         data: true,
                     })
                 };
-                return response;
+                resolve(response);
             }
 
         });
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+    });
+
+
+
 
 
 };
