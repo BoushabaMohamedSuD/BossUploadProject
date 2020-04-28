@@ -40,6 +40,8 @@ export class FetchData implements ResponsibilitiesHolder {
                         this.data.data.maxSize = resp.Item.size_allowed.N;
                         this.data.data.consSize = resp.Item.size_consumed.N;
 
+                        console.log("fetch data complete");
+                        console.log(this.data);
 
                         //if evrything is ok
                         if (this.Nextchaine != null) {

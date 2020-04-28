@@ -36,6 +36,7 @@ export class UpdateDB implements ResponsibilitiesHolder {
                 });
 
             if (FolderSize != 0) {
+
                 let sizeconsumed = consSize - FolderSize;
 
 
