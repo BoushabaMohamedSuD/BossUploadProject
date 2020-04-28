@@ -84,7 +84,7 @@ export class FilterUpdateObject implements ResponsibilitiesHolder {
                     },
                     ReturnValues: "ALL_NEW",
                     TableName: "Users_Info",
-                    UpdateExpression: "SET #Y = :y"
+                    UpdateExpression: "SET #y = :y"
                 };
                 dynamodb.updateItem(params, (err, data) => {
                     if (err) {

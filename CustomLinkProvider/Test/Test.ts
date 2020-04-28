@@ -55,8 +55,15 @@ let params = {
 
 
 let objects = new Array();
+
+
+let i="4";
+let ins = parseInt(i, 10);
+console.log(ins);
+console.log(typeof(ins));
+
 //console.log(params)
-s3.listObjects(params, function (err, data) {
+/*s3.listObjects(params, function (err, data) {
     if (err) {
         console.log(err, err.stack);
     }
@@ -87,10 +94,10 @@ s3.listObjects(params, function (err, data) {
   
           });*/
 
-    };
+  /*  };
 
 
-});
+});*/
 
 
 /*

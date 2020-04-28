@@ -37,8 +37,8 @@ export class FetchData implements ResponsibilitiesHolder {
                     console.log(resp);
                     if (resp != null) {
                         this.data.data.status = resp.Item.status.S;
-                        this.data.data.maxSize = resp.Item.size_allowed.N;
-                        this.data.data.consSize = resp.Item.size_consumed.N;
+                        this.data.data.maxSize = parseInt(resp.Item.size_allowed.N, 10);
+                        this.data.data.consSize = parseInt(resp.Item.size_consumed.N, 10);
 
                         console.log("fetch data complete");
                         console.log(this.data);

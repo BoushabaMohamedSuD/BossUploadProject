@@ -47,8 +47,8 @@ export async function lambdaHandler(event, context) {
 
 
     let body = JSON.parse(event.body);
-    //let email = event.requestContext.authorizer.claims.email;
-    let email = "nodejs1998yz@gmail.com"
+    let email = event.requestContext.authorizer.claims.email;
+    //let email = "nodejs1998yz@gmail.com"
     let type = body.type;
     let key = body.key;
     let folder = body.folder;
@@ -96,7 +96,6 @@ export async function lambdaHandler(event, context) {
 
                 }
             });
-
 
         } else {
             console.log("key is undifined or null or equal an empty string");
