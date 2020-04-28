@@ -43,7 +43,13 @@ const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 
 
-export async function lambdaHandler(event, context) {
+
+
+// we have to use (return callback ) instead of return resp 
+//beceaus it's async function
+
+
+export async function lambdaHandler(event, context, callback) {
     try {
 
         console.log("create folder");
@@ -60,7 +66,7 @@ export async function lambdaHandler(event, context) {
 
         //body don't matter in this case 
 
-        if (folder != "") {
+        if (folder != "" && (type == "private" || type == "public")) {
             console.log("begun creation");
             params = { Bucket: type + '-bossupload', Key: email + '/' + folder + '/', Body: '' };
             s3.upload(params, (err, data) => {
@@ -73,7 +79,10 @@ export async function lambdaHandler(event, context) {
                             err: err,
                         })
                     };
-                    return response;
+
+                    //return response;
+                    return callback(null, response);
+
                 } else {
                     console.log("Successfully created a folder on S3");
                     console.log('The URL is');
@@ -83,7 +92,9 @@ export async function lambdaHandler(event, context) {
                             data: true,
                         })
                     };
-                    return response;
+
+                    // return response;
+                    return callback(null, response);
 
                 }
             });
@@ -93,11 +104,12 @@ export async function lambdaHandler(event, context) {
             response = {
                 'statusCode': 400,
                 'body': JSON.stringify({
-                    data: "folder name is empty",
+                    data: "folder name is empty or type is not match with the requirement",
                     err: false,
                 })
             };
-            return response;
+            //return response;
+            return callback(null, response);
 
         }
 
@@ -107,7 +119,17 @@ export async function lambdaHandler(event, context) {
 
     } catch (err) {
         console.log(err);
-        return err;
+        response = {
+            'statusCode': 400,
+            'body': JSON.stringify({
+                data: err,
+                err: false,
+            })
+        };
+
+
+        //return err;
+        return callback(null, response);
     }
 
 

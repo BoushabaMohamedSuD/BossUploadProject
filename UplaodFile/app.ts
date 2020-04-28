@@ -77,7 +77,7 @@ export async function lambdaHandler(event, context, callback) {
                 error: err,
             })
         };
-        return callback(null, err);
+        return callback(null, response);
     }
 
 
