@@ -44,11 +44,11 @@ s3.upload(params, function (err, data) {
 let key = "";
 
 let nameT = "mohamed";
-let type = "public";
+let type = "private";
 
 let params = {
-    Bucket: type + "-bossuplaod",
-    Prefix: "Datacenter.pdf",
+    Bucket: type + "-bossupload",
+    Prefix: "nodejs1998yz@gmail.com/Images/typaescript-aws-sam-master.zip",
     //MaxKeys: 2
 };
 
@@ -62,6 +62,7 @@ s3.listObjects(params, function (err, data) {
     }
     else {
         console.log(data.Contents);
+        console.log(data.Contents[0].Size);
         /* data.Contents.forEach(element => {
              let object = {
                  Key: element.Key,

@@ -54,7 +54,7 @@ export class FetchObjectSize implements ResponsibilitiesHolder {
 
                 }
                 else {
-                    //console.log(data);
+                    console.log(data.Contents[0]);
 
                     this.data.data
                         .fileSize = data.Contents[0].Size
@@ -80,6 +80,7 @@ export class FetchObjectSize implements ResponsibilitiesHolder {
                             });
                     } else {
                         console.log('this is the end of the chaine');
+                        this.data.response.resp = true;
                         resolve(true);
                     }
 

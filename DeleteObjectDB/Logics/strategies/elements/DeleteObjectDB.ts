@@ -87,7 +87,8 @@ export class DeleteObjectDB implements StrategiesHolder {
 
     private treatment(): void {
         let body = JSON.parse(this.event.body);
-        this.data.request.email = this.event.requestContext.authorizer.claims.email;
+        //this.data.request.email = this.event.requestContext.authorizer.claims.email;
+        this.data.request.email = "nodejs1998yz@gmail.com"
         this.data.request.folder = body.folder;
         this.data.request.type = body.type;
         this.data.request.key = body.key;

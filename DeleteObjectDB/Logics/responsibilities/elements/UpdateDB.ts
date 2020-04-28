@@ -80,6 +80,7 @@ export class UpdateDB implements ResponsibilitiesHolder {
                             });
                     } else {
                         console.log('this is the end of the chaine');
+                        this.data.response.resp = true;
                         resolve(true);
                     }
                 }
