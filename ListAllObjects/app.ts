@@ -47,13 +47,14 @@ const s3 = new AWS.S3();
 export async function lambdaHandler(event, context) {
 
 
-    let body = JSON.parse(event.body);
-    let email = event.requestContext.authorizer.claims.email;
-    let allObjects:
-        {
-            publicData: any[],
-            privateData: any[]
-        };
+    //let email = event.requestContext.authorizer.claims.email;
+    console.log("get all objects")
+    let email = "nodejs1998yz@gmail.com";
+    let allObjects =
+    {
+        publicData: new Array(),
+        privateData: new Array()
+    };
 
     let paramsPublic = {
         Bucket: "public-bossupload",

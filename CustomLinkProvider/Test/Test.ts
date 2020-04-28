@@ -57,47 +57,25 @@ let params = {
 let objects = new Array();
 
 
-let i="4";
+let i = "4";
 let ins = parseInt(i, 10);
 console.log(ins);
-console.log(typeof(ins));
+console.log(typeof (ins));
 
 //console.log(params)
-/*s3.listObjects(params, function (err, data) {
+s3.listObjects(params, function (err, data) {
     if (err) {
         console.log(err, err.stack);
     }
     else {
         console.log(data.Contents);
         console.log(data.Contents[0].Size);
-        /* data.Contents.forEach(element => {
-             let object = {
-                 Key: element.Key,
-                 size: element.Size
-             };
-             objects.push(object);
- 
-         });
-         console.log(objects);*/
-        /*  let paramst = {
-              Bucket: "public-bossuplaod",
-              Delete: {
-                  Objects: objects,
-                  Quiet: false
-              }
-          };
-          console.log(paramst.Delete)
-  
-          s3.deleteObjects(paramst, (err, data) => {
-              if (err) console.log(err, err.stack); // an error occurred
-              else console.log(data);           // successful response
-  
-          });*/
-
-  /*  };
+        console.log(typeof (data.Contents[0].Size))
 
 
-});*/
+
+    }
+});
 
 
 /*
