@@ -82,7 +82,7 @@ export async function lambdaHandler(event, context, callback) {
                     };
 
                     //return response;
-                    rejecte(response);
+                    resolve(response);
 
                 } else {
                     console.log("Successfully created a folder on S3");
@@ -109,12 +109,13 @@ export async function lambdaHandler(event, context, callback) {
                 })
             };
             //return response;
-            rejecte(response);
+            resolve(response);
 
         }
 
-    })
+        console.log("end creation");
 
+    })
 
 
 

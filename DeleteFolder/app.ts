@@ -44,35 +44,38 @@ const s3 = new AWS.S3();
 
 
 export async function lambdaHandler(event, context) {
-    try {
-
-        let body = JSON.parse(event.body);
-        let email = event.requestContext.authorizer.claims.email;
-        let type = body.type;
-        let folder = body.folder;
-        let params;
-        if (folder != "") {
-
-            params = {
-                Bucket: type + "-bossuplaod",
-                Prefix: email + "/" + folder + "/",
-                //MaxKeys: 2
-            };
-
-        } else {
-            params = {
-                Bucket: type + "-bossuplaod",
-                Prefix: email + "/",
-                //MaxKeys: 2
-            };
-        }
 
 
+    let body = JSON.parse(event.body);
+    let email = event.requestContext.authorizer.claims.email;
+    let type = body.type;
+    let folder = body.folder;
+    let params;
+    if (folder != "") {
+
+        params = {
+            Bucket: type + "-bossuplaod",
+            Prefix: email + "/" + folder + "/",
+            //MaxKeys: 2
+        };
+
+    } else {
+        params = {
+            Bucket: type + "-bossuplaod",
+            Prefix: email + "/",
+            //MaxKeys: 2
+        };
+    }
 
 
 
-        let objects = new Array();
-        //console.log(params)
+
+
+    let objects = new Array();
+    //console.log(params)
+
+    return new Promise((resolve, reject) => {
+
         s3.listObjects(params, function (err, data) {
             if (err) {
                 console.log(err, err.stack);
@@ -83,7 +86,7 @@ export async function lambdaHandler(event, context) {
                         err: err,
                     })
                 };
-                return response;
+                resolve(response);
             }
             else {
                 //console.log(data);
@@ -114,7 +117,7 @@ export async function lambdaHandler(event, context) {
                                 err: err,
                             })
                         };
-                        return response;
+                        resolve(response);
                     }
                     else {
                         console.log(data);
@@ -124,7 +127,7 @@ export async function lambdaHandler(event, context) {
                                 data: true,
                             })
                         };
-                        return response;
+                        resolve(response);
                     }
 
                 });
@@ -135,10 +138,10 @@ export async function lambdaHandler(event, context) {
         });
 
 
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+    })
+
+
+
 
 
 };
