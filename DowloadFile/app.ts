@@ -47,7 +47,8 @@ export async function lambdaHandler(event, context) {
 
 
     let body = JSON.parse(event.body);
-    let email = event.requestContext.authorizer.claims.email;
+    //let email = event.requestContext.authorizer.claims.email;
+    let email = "nodejs1998yz@gmail.com"
     let type = body.type;
     let key = body.key;
     let folder = body.folder;
@@ -66,33 +67,51 @@ export async function lambdaHandler(event, context) {
         };
     }
 
+
     return new Promise((resolve, reject) => {
-        s3.getSignedUrl('getObject', params, (err, url) => {
-            if (err) {
-                console.log(err);
-                response = {
-                    'statusCode': 400,
-                    'body': JSON.stringify({
-                        data: "we cannot get url",
-                        err: err,
-                    })
-                };
-                // return response;
-                resolve(response);
+        if (key != "" && key != undefined && key != null) {
+            s3.getSignedUrl('getObject', params, (err, url) => {
+                if (err) {
+                    console.log(err);
+                    response = {
+                        'statusCode': 400,
+                        'body': JSON.stringify({
+                            data: "we cannot get url",
+                            err: err,
+                        })
+                    };
+                    // return response;
+                    resolve(response);
 
-            } else {
-                console.log('The URL is', url);
-                response = {
-                    'statusCode': 200,
-                    'body': JSON.stringify({
-                        data: { url: url },
-                    })
-                };
-                // return response;
-                resolve(response);
+                } else {
+                    console.log('The URL is', url);
+                    response = {
+                        'statusCode': 200,
+                        'body': JSON.stringify({
+                            data: { url: url },
+                        })
+                    };
+                    // return response;
+                    resolve(response);
 
-            }
-        });
+                }
+            });
+
+
+        } else {
+            console.log("key is undifined or null or equal an empty string");
+            response = {
+                'statusCode': 400,
+                'body': JSON.stringify({
+                    data: "we cannot get url",
+                    err: "key is undifined or null or equal an empty string",
+                })
+            };
+            // return response;
+            resolve(response);
+
+        }
+
     });
 
 
