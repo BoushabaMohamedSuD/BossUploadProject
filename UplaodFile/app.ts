@@ -47,7 +47,8 @@ let response;
 
 
 export async function lambdaHandler(event, context, callback) {
-    try {
+
+    return new Promise((resolve, reject) => {
         new Context(new UplaodFile(event))
             .process()
             .then((data: any) => {
@@ -57,7 +58,9 @@ export async function lambdaHandler(event, context, callback) {
                         data: data,
                     })
                 };
-                return callback(null, response);
+                // return callback(null, response);
+                //return response;
+                resolve(response);
             })
             .catch((err) => {
                 response = {
@@ -66,19 +69,15 @@ export async function lambdaHandler(event, context, callback) {
                         error: err,
                     })
                 };
-                return callback(null, response);
+                // return callback(null, response);
+                //return response;
+                resolve(response);
             });
 
-    } catch (err) {
-        console.log(err);
-        response = {
-            'statusCode': 400,
-            'body': JSON.stringify({
-                error: err,
-            })
-        };
-        return callback(null, response);
-    }
+
+    });
+
+
 
 
 };
