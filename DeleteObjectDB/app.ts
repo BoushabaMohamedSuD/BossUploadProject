@@ -47,7 +47,8 @@ let response;
 
 
 export async function lambdaHandler(event, context) {
-    try {
+
+    return new Promise((resolve, reject) => {
         new Context(new DeleteObjectDB(event))
             .process()
             .then((data: any) => {
@@ -57,7 +58,8 @@ export async function lambdaHandler(event, context) {
                         data: data,
                     })
                 };
-                return response;
+                //return response;
+                resolve(response);
             })
             .catch((err) => {
                 response = {
@@ -66,13 +68,13 @@ export async function lambdaHandler(event, context) {
                         error: err,
                     })
                 };
-                return response;
+                // return response;
+                resolve(response);
             });
+    });
 
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+
+
 
 
 };
