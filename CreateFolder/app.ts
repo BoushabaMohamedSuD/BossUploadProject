@@ -1,5 +1,6 @@
 
 
+
 let response;
 
 /**
@@ -50,22 +51,22 @@ const s3 = new AWS.S3();
 
 
 export async function lambdaHandler(event, context, callback) {
-    try {
-
-        console.log("create folder");
-
-        let body = JSON.parse(event.body);
-        let email = event.requestContext.authorizer.claims.email;
-        let type = body.type;
-        let folder = body.folder;
-        let params;
-        console.log(email);
-        console.log(folder);
-        console.log(type);
 
 
-        //body don't matter in this case 
+    console.log("create folder");
 
+    let body = JSON.parse(event.body);
+    let email = event.requestContext.authorizer.claims.email;
+    let type = body.type;
+    let folder = body.folder;
+    let params;
+    console.log(email);
+    console.log(folder);
+    console.log(type);
+
+
+    //body don't matter in this case 
+    return new Promise((resolve, rejecte) => {
         if (folder != "" && (type == "private" || type == "public")) {
             console.log("begun creation");
             params = { Bucket: type + '-bossupload', Key: email + '/' + folder + '/', Body: '' };
@@ -81,7 +82,7 @@ export async function lambdaHandler(event, context, callback) {
                     };
 
                     //return response;
-                    return callback(null, response);
+                    rejecte(response);
 
                 } else {
                     console.log("Successfully created a folder on S3");
@@ -94,8 +95,7 @@ export async function lambdaHandler(event, context, callback) {
                     };
 
                     // return response;
-                    return callback(null, response);
-
+                    resolve(response);
                 }
             });
 
@@ -109,28 +109,14 @@ export async function lambdaHandler(event, context, callback) {
                 })
             };
             //return response;
-            return callback(null, response);
+            rejecte(response);
 
         }
 
+    })
 
 
 
-
-    } catch (err) {
-        console.log(err);
-        response = {
-            'statusCode': 400,
-            'body': JSON.stringify({
-                data: err,
-                err: false,
-            })
-        };
-
-
-        //return err;
-        return callback(null, response);
-    }
 
 
 };
