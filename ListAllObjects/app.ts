@@ -45,29 +45,29 @@ const s3 = new AWS.S3();
 
 
 export async function lambdaHandler(event, context) {
-    try {
 
-        let body = JSON.parse(event.body);
-        let email = event.requestContext.authorizer.claims.email;
-        let allObjects:
-            {
-                publicData: any[],
-                privateData: any[]
-            };
 
-        let paramsPublic = {
-            Bucket: "public-bossupload",
-            Prefix: email + "/",
-            //MaxKeys: 2
+    let body = JSON.parse(event.body);
+    let email = event.requestContext.authorizer.claims.email;
+    let allObjects:
+        {
+            publicData: any[],
+            privateData: any[]
         };
 
-        let paramsPrivate = {
-            Bucket: "private-bossupload",
-            Prefix: email + "/",
-            //MaxKeys: 2
-        };
+    let paramsPublic = {
+        Bucket: "public-bossupload",
+        Prefix: email + "/",
+        //MaxKeys: 2
+    };
 
+    let paramsPrivate = {
+        Bucket: "private-bossupload",
+        Prefix: email + "/",
+        //MaxKeys: 2
+    };
 
+    return new Promise((resolve, reject) => {
         s3.listObjects(paramsPublic, (err, data) => {
             if (err) {
                 console.log(err, err.stack);
@@ -78,7 +78,8 @@ export async function lambdaHandler(event, context) {
                         err: err,
                     })
                 };
-                return response;
+                //return response;
+                resolve(response);
             }
             else {
                 console.log(data);
@@ -96,7 +97,8 @@ export async function lambdaHandler(event, context) {
                                 err: err,
                             })
                         };
-                        return response;
+                        //return response;
+                        resolve(response);
                     }
                     else {
                         console.log(data);
@@ -111,7 +113,8 @@ export async function lambdaHandler(event, context) {
 
                             })
                         };
-                        return response;
+                        // return response;
+                        resolve(response);
 
                     };
 
@@ -124,13 +127,14 @@ export async function lambdaHandler(event, context) {
 
         });
 
+    });
 
-        /* */
 
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+
+
+    /* */
+
+
 
 
 };
