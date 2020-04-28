@@ -44,29 +44,29 @@ const s3 = new AWS.S3();
 
 
 export async function lambdaHandler(event, context) {
-    try {
-
-        let body = JSON.parse(event.body);
-        let email = event.requestContext.authorizer.claims.email;
-        let type = body.type;
-        let key = body.key;
-        let folder = body.folder;
-        let params;
-        if (folder != "") {
-            params = {
-                Bucket: type + '-bossupload',
-                Key: email + "/" + folder + "/" + key,
-                Expires: 60,
-            };
-        } else {
-            params = {
-                Bucket: type + '-bossupload',
-                Key: email + "/" + key,
-                Expires: 60,
-            };
-        }
 
 
+    let body = JSON.parse(event.body);
+    let email = event.requestContext.authorizer.claims.email;
+    let type = body.type;
+    let key = body.key;
+    let folder = body.folder;
+    let params;
+    if (folder != "") {
+        params = {
+            Bucket: type + '-bossupload',
+            Key: email + "/" + folder + "/" + key,
+            Expires: 60,
+        };
+    } else {
+        params = {
+            Bucket: type + '-bossupload',
+            Key: email + "/" + key,
+            Expires: 60,
+        };
+    }
+
+    return new Promise((resolve, reject) => {
         s3.getSignedUrl('getObject', params, (err, url) => {
             if (err) {
                 console.log(err);
@@ -77,7 +77,8 @@ export async function lambdaHandler(event, context) {
                         err: err,
                     })
                 };
-                return response;
+                // return response;
+                resolve(response);
 
             } else {
                 console.log('The URL is', url);
@@ -87,16 +88,17 @@ export async function lambdaHandler(event, context) {
                         data: { url: url },
                     })
                 };
-                return response;
+                // return response;
+                resolve(response);
 
             }
         });
+    });
 
 
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+
+
+
 
 
 };
