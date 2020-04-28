@@ -41,9 +41,12 @@ let response;
 
 
 
+// we have to use (return callback ) instead of return resp 
+//beceaus it's async function
 
 
-export async function lambdaHandler(event, context) {
+
+export async function lambdaHandler(event, context, callback) {
     try {
         new Context(new UplaodFile(event))
             .process()
@@ -54,7 +57,7 @@ export async function lambdaHandler(event, context) {
                         data: data,
                     })
                 };
-                return response;
+                return callback(null, response);
             })
             .catch((err) => {
                 response = {
@@ -63,12 +66,18 @@ export async function lambdaHandler(event, context) {
                         error: err,
                     })
                 };
-                return response;
+                return callback(null, response);
             });
 
     } catch (err) {
         console.log(err);
-        return err;
+        response = {
+            'statusCode': 400,
+            'body': JSON.stringify({
+                error: err,
+            })
+        };
+        return callback(null, err);
     }
 
 

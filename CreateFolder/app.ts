@@ -46,17 +46,23 @@ const s3 = new AWS.S3();
 export async function lambdaHandler(event, context) {
     try {
 
+        console.log("create folder");
+
         let body = JSON.parse(event.body);
         let email = event.requestContext.authorizer.claims.email;
         let type = body.type;
         let folder = body.folder;
         let params;
+        console.log(email);
+        console.log(folder);
+        console.log(type);
+
 
         //body don't matter in this case 
 
         if (folder != "") {
+            console.log("begun creation");
             params = { Bucket: type + '-bossupload', Key: email + '/' + folder + '/', Body: '' };
-
             s3.upload(params, (err, data) => {
                 if (err) {
                     console.log("Error creating the folder: ", err);
@@ -83,6 +89,7 @@ export async function lambdaHandler(event, context) {
             });
 
         } else {
+            console.log("stop creation");
             response = {
                 'statusCode': 400,
                 'body': JSON.stringify({
