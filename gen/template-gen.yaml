@@ -1,0 +1,174 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "sam-app\nSample SAM Template for sam-app\n"
+Globals:
+  Function:
+    Timeout: 60
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      Auth:
+        DefaultAuthorizer: MyCognitoAuth
+        Authorizers:
+          MyCognitoAuth:
+            UserPoolArn: arn:aws:cognito-idp:us-east-1:265267535237:userpool/us-east-1_xmlerYTkV
+            Identity:
+              Header: Authorization
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/8a88f2b87300be6d9c21761be1c0af17
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+            RestApiId:
+              Ref: ApiGatewayApi
+  HelloWorldFunctionSecure:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/8a88f2b87300be6d9c21761be1c0af17
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /Secure
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  CreateFolder:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/57a507f8c64bf194a764171b998cb21d
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /S3peration/createFolder
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  DeleteFolder:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/bbd982be74701672f4999740415b7c63
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /S3peration/deleteFolder
+            Method: delete
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  DeleteObject:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/c3cf93f79601277e0bb1d60889e27675
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /S3peration/deleteObject
+            Method: delete
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  DowmloadFile:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/b3f0d14d699b0f53f8550aa0d18d7ac8
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /S3peration/downloadFile
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  ListAllObjects:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/2feff37d4fb5409694d30cf76a6ff210
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /S3peration/ListAllObjects
+            Method: get
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  UplaodFile:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/bd88eb83d987b3c958312990735eb036
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /S3peration/UplaodFile
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  GetUserInfo:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/d75c31a34162ac01c35d926d0cba02fb
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /DynamoDB/GetUserInfo
+            Method: get
+            RestApiId:
+              Ref: ApiGatewayApi
+            Auth:
+              Authorizer: MyCognitoAuth
+  CustomLinkProvider:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://boushabamohamedstuff/d79bb6d4faf4a1dca7938b190e909e4c
+      Handler: app.lambdaHandler
+      Runtime: nodejs10.x
+      Role: arn:aws:iam::265267535237:role/LambdaFullAccessCognitp
