@@ -75,6 +75,11 @@ export async function lambdaHandler(event, context, callback) {
                     console.log("Error creating the folder: ", err);
                     response = {
                         'statusCode': 400,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
                         'body': JSON.stringify({
                             data: "we cannot get url",
                             err: err,
@@ -89,6 +94,11 @@ export async function lambdaHandler(event, context, callback) {
                     console.log('The URL is');
                     response = {
                         'statusCode': 200,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
                         'body': JSON.stringify({
                             data: true,
                         })
@@ -103,6 +113,11 @@ export async function lambdaHandler(event, context, callback) {
             console.log("stop creation");
             response = {
                 'statusCode': 400,
+                'headers': {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                    "Access-Control-Allow-Methods": "*"
+                },
                 'body': JSON.stringify({
                     data: "folder name is empty or type is not match with the requirement",
                     err: false,
