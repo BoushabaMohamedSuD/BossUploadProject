@@ -72,6 +72,11 @@ export async function lambdaHandler(event, context) {
                 console.log(err, err.stack);
                 response = {
                     'statusCode': 400,
+                    'headers': {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                        "Access-Control-Allow-Methods": "*"
+                    },
                     'body': JSON.stringify({
                         data: "we cannot get keys",
                         err: err,
@@ -85,6 +90,11 @@ export async function lambdaHandler(event, context) {
                 // send data contents
                 response = {
                     'statusCode': 200,
+                    'headers': {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                        "Access-Control-Allow-Methods": "*"
+                    },
                     'body': JSON.stringify({
                         data: data.Contents,
 
