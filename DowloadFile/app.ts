@@ -111,6 +111,11 @@ export async function lambdaHandler(event, context) {
             console.log("key is undifined or null or equal an empty string");
             response = {
                 'statusCode': 400,
+                'headers': {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                    "Access-Control-Allow-Methods": "*"
+                },
                 'body': JSON.stringify({
                     data: "we cannot get url",
                     err: "key is undifined or null or equal an empty string",

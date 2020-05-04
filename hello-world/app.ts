@@ -50,6 +50,11 @@ export async function lambdaHandler(event, context) {
         let body2 = JSON.parse(event.body.toString());
         response = {
             'statusCode': 200,
+            'headers': {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Methods": "*"
+            },
             'body': JSON.stringify({
                 message: echoThisString('hello world Event '),
                 // location: ret.data.trim(),
