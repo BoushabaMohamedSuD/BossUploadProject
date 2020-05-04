@@ -53,6 +53,11 @@ export async function lambdaHandler(event, context) {
             .then((data: any) => {
                 response = {
                     'statusCode': 200,
+                    'headers': {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                        "Access-Control-Allow-Methods": "*"
+                    },
                     'body': JSON.stringify({
                         data: data,
                     })
@@ -63,6 +68,11 @@ export async function lambdaHandler(event, context) {
             .catch((err) => {
                 response = {
                     'statusCode': 400,
+                    'headers': {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                        "Access-Control-Allow-Methods": "*"
+                    },
                     'body': JSON.stringify({
                         error: err,
                     })
