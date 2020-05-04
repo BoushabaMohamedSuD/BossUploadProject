@@ -18,3 +18,10 @@ make sure to provade the dist/repos(name you chose)
 
             boushabamohamedstuff
             BossUpload
+
+
+// sam DEPLOY
+
+aws cloudformation package --s3-bucket  boushabamohamedstuff --template-file template.yaml --output-template-file gen/template-gen.yaml
+
+aws cloudformation  deploy --template-file  gen/template-gen.yaml  --stack-name BossUpload --capabilities CAPABILITY_IAM

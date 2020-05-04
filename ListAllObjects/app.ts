@@ -47,9 +47,9 @@ const s3 = new AWS.S3();
 export async function lambdaHandler(event, context) {
 
 
-    //let email = event.requestContext.authorizer.claims.email;
+    let email = event.requestContext.authorizer.claims.email;
     console.log("get all objects")
-    let email = "nodejs1998yz@gmail.com";
+    //let email = "nodejs1998yz@gmail.com";
     let allObjects =
     {
         publicData: new Array(),
