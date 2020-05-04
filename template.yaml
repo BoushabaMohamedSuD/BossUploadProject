@@ -207,7 +207,7 @@ Resources:
                     Type: Api 
                     Properties:
                         Path: /DynamoDB/GetUserInfo
-                        Method: post
+                        Method: get
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth 
