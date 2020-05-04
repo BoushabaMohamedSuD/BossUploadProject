@@ -16,6 +16,10 @@ Resources:
         Type: AWS::Serverless::Api
         Properties:
             StageName: dev
+            Cors:
+                AllowMethods: "'POST,GET,PUT,DELETE'"
+                AllowHeaders: "'*'"
+                AllowOrigin: "'*'"
             Auth:
                 DefaultAuthorizer: MyCognitoAuth 
                 Authorizers:

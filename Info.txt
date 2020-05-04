@@ -25,3 +25,16 @@ make sure to provade the dist/repos(name you chose)
 aws cloudformation package --s3-bucket  boushabamohamedstuff --template-file template.yaml --output-template-file gen/template-gen.yaml
 
 aws cloudformation  deploy --template-file  gen/template-gen.yaml  --stack-name BossUpload --capabilities CAPABILITY_IAM
+
+
+
+////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  TOO ENABLE CORS YOU HAVE 
+
+
+* you need to add allow-access-origine="*" in the header of you resposne 
+    in the lambda function 
+* you have to add enable cors in you templet yaml
+
+* DONT FORGET to disable auth in the options methodes in the apigetway form 
+    the console !!!!!!!!!!!!   (MOST IMPORTANT THING  TOOK ME MORE THEN 24 HOURS )
