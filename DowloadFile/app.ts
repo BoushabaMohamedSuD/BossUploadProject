@@ -75,6 +75,11 @@ export async function lambdaHandler(event, context) {
                     console.log(err);
                     response = {
                         'statusCode': 400,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
                         'body': JSON.stringify({
                             data: "we cannot get url",
                             err: err,
@@ -87,6 +92,11 @@ export async function lambdaHandler(event, context) {
                     console.log('The URL is', url);
                     response = {
                         'statusCode': 200,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
                         'body': JSON.stringify({
                             data: { url: url },
                         })
