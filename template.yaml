@@ -191,6 +191,29 @@ Resources:
 
 
 
+# GETUSER INFO
+
+
+
+    GetUserInfo:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/GetUserInfo/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /DynamoDB/GetUserInfo
+                        Method: post
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth 
+
+
+
 
 
 # CUSTOM LINK PROVIDER
