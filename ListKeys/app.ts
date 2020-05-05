@@ -53,6 +53,8 @@ export async function lambdaHandler(event, context) {
     let folder = body.folder
     let params;
 
+
+
     if (folder != "") {
         params = {
             Bucket: type + "-bossupload",
@@ -67,45 +69,64 @@ export async function lambdaHandler(event, context) {
         };
     }
     return new Promise((resolve, reject) => {
-        s3.listObjects(params, (err, data) => {
-            if (err) {
-                console.log(err, err.stack);
-                response = {
-                    'statusCode': 400,
-                    'headers': {
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Headers": "*",
-                        "Access-Control-Allow-Methods": "*"
-                    },
-                    'body': JSON.stringify({
-                        data: "we cannot get keys",
-                        err: err,
-                    })
-                };
-                //return response;
-                resolve(response);
-            }
-            else {
-                console.log(data);
-                // send data contents
-                response = {
-                    'statusCode': 200,
-                    'headers': {
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Headers": "*",
-                        "Access-Control-Allow-Methods": "*"
-                    },
-                    'body': JSON.stringify({
-                        data: data.Contents,
+        if (type == "private" || type == "public") {
+            s3.listObjects(params, (err, data) => {
+                if (err) {
+                    console.log(err, err.stack);
+                    response = {
+                        'statusCode': 400,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
+                        'body': JSON.stringify({
+                            data: "we cannot get keys",
+                            err: err,
+                        })
+                    };
+                    //return response;
+                    resolve(response);
+                }
+                else {
+                    console.log(data);
+                    // send data contents
+                    response = {
+                        'statusCode': 200,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
+                        'body': JSON.stringify({
+                            data: data.Contents,
 
-                    })
+                        })
+                    };
+                    //return response;
+                    resolve(response);
                 };
-                //return response;
-                resolve(response);
+
+
+            });
+
+
+        } else {
+            response = {
+                'statusCode': 400,
+                'headers': {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                    "Access-Control-Allow-Methods": "*"
+                },
+                'body': JSON.stringify({
+                    err: "type should be private or public",
+                })
             };
+            //return response;
+            resolve(response);
+        }
 
-
-        });
 
     });
 
