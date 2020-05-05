@@ -210,7 +210,30 @@ Resources:
                 ApiEvent:
                     Type: Api 
                     Properties:
-                        Path: /DynamoDB/GetUserInfo
+                        Path: /S3peration/GetUserInfo
+                        Method: put
+                        RestApiId: !Ref ApiGatewayApi
+                        Auth:
+                          Authorizer: MyCognitoAuth 
+
+
+
+# ListKeys
+
+
+
+    ListKeys:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/ListKeys/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Role: arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
+            Events:
+                ApiEvent:
+                    Type: Api 
+                    Properties:
+                        Path: /DynamoDB/ListKeys
                         Method: get
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
