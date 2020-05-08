@@ -41,12 +41,11 @@ let response;
 
 
 const AWS = require("aws-sdk");
-const s3 = new AWS.S3();
+let dynamodb = new AWS.DynamoDB();
 
 
 export async function lambdaHandler(event, context) {
-    try {
-
+    return new Promise((resolve, reject) => {
         //console.log(event);
         //console.log(event.Records[0].s3);
         let key = event.Records[0]
@@ -59,14 +58,86 @@ export async function lambdaHandler(event, context) {
         console.log(email);
 
 
+        let params = {
+            Key: {
+                "email": {
+                    S: email
+                },
+            },
+            TableName: "Users_Info"
+        };
+
+        dynamodb.getItem(params, (err, resp) => {
+            if (err) {
+                console.log(err, err.stack);
+                reject(err);
+            }
+            else {
+                console.log(resp);
+                if (resp != null) {
+
+                    let consSize = parseInt(resp.Item.size_consumed.N, 10);
+
+                    let sizeconsumedString = (consSize + size).toString()
+
+                    console.log("fetch data complete");
+
+                    let params = {
+                        ExpressionAttributeNames: {
+                            "#y": "size_consumed"
+                        },
+                        ExpressionAttributeValues: {
+
+                            ":y": {
+                                N: sizeconsumedString
+                            }
+                        },
+                        Key: {
+                            "email": {
+                                S: email
+                            },
+
+                        },
+                        ReturnValues: "ALL_NEW",
+                        TableName: "Users_Info",
+                        UpdateExpression: "SET #y = :y"
+                    };
+                    dynamodb.updateItem(params, (err, data) => {
+                        if (err) {
+                            console.log(err, err.stack);
+                            reject("we cannot update consemed size in FilterUpdateObject");
+                        }
+                        else {
+                            //if evrything is ok
+
+                        }
+
+                    });
 
 
 
 
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
+
+
+
+                } else {
+                    console.log("data is null in fetch data");
+                    reject(" data in fetch data is null");
+                }
+            }
+
+        });
+
+
+
+
+
+
+    })
+
+
+
+
 
 
 };

@@ -62,7 +62,7 @@ export class UplaodFile implements StrategiesHolder {
             .setNextChaine(new Filter(this.data))
             .setNextChaine(new FilterUpdateObject(this.data))
             .setNextChaine(new GeneratorUrl(this.data))
-            .setNextChaine(new UpdateDB(this.data));
+        //.setNextChaine(new UpdateDB(this.data));
 
 
     }

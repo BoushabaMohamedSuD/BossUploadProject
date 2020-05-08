@@ -211,7 +211,7 @@ Resources:
                     Type: Api 
                     Properties:
                         Path: /S3peration/GetUserInfo
-                        Method: put
+                        Method: get
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth 
@@ -233,8 +233,8 @@ Resources:
                 ApiEvent:
                     Type: Api 
                     Properties:
-                        Path: /DynamoDB/ListKeys
-                        Method: get
+                        Path: /S3peration/ListKeys
+                        Method: put
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth 
