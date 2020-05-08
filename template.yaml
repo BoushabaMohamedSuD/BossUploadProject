@@ -96,7 +96,7 @@ Resources:
                     Type: Api 
                     Properties:
                         Path: /S3peration/deleteFolder
-                        Method: delete
+                        Method: put
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth       
@@ -119,7 +119,7 @@ Resources:
                     Type: Api 
                     Properties:
                         Path: /S3peration/deleteObject
-                        Method: delete
+                        Method: put
                         RestApiId: !Ref ApiGatewayApi
                         Auth:
                           Authorizer: MyCognitoAuth      
@@ -252,6 +252,17 @@ Resources:
             Handler: app.lambdaHandler
             Runtime: nodejs10.x
             Role: arn:aws:iam::265267535237:role/LambdaFullAccessCognitp
+
+
+# CUSTOM S3 TRIGGER
+
+    CustomLinkProvider:
+        Type: AWS::Serverless::Function 
+        Properties:
+            CodeUri: dist/S3Trigger/
+            Handler: app.lambdaHandler
+            Runtime: nodejs10.x
+            Role:  arn:aws:iam::265267535237:role/LambdaFullAccessS3DB
 
 
     

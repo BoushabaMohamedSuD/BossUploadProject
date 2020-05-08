@@ -192,7 +192,4 @@ export async function lambdaHandler(event, context) {
 
 
 
-
-
-
 };
