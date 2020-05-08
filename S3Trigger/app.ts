@@ -54,6 +54,7 @@ export async function lambdaHandler(event, context) {
             .s3.object.size;
         // console.log(key);
         //console.log(size);
+
         let email = decodeURIComponent(key.split("/")[0]);
         console.log(email);
 
@@ -70,7 +71,20 @@ export async function lambdaHandler(event, context) {
         dynamodb.getItem(params, (err, resp) => {
             if (err) {
                 console.log(err, err.stack);
-                reject(err);
+                response = {
+                    'statusCode': 400,
+                    'headers': {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Headers": "*",
+                        "Access-Control-Allow-Methods": "*"
+                    },
+                    'body': JSON.stringify({
+                        error: err,
+                    })
+                };
+                // return callback(null, response);
+                //return response;
+                reject(response);
             }
             else {
                 console.log(resp);
@@ -105,10 +119,38 @@ export async function lambdaHandler(event, context) {
                     dynamodb.updateItem(params, (err, data) => {
                         if (err) {
                             console.log(err, err.stack);
-                            reject("we cannot update consemed size in FilterUpdateObject");
+                            response = {
+                                'statusCode': 400,
+                                'headers': {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Access-Control-Allow-Headers": "*",
+                                    "Access-Control-Allow-Methods": "*"
+                                },
+                                'body': JSON.stringify({
+                                    error: err,
+                                })
+                            };
+                            // return callback(null, response);
+                            //return response;
+                            reject(response);
                         }
                         else {
                             //if evrything is ok
+                            response = {
+                                'statusCode': 200,
+                                'headers': {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Access-Control-Allow-Headers": "*",
+                                    "Access-Control-Allow-Methods": "*"
+                                },
+                                'body': JSON.stringify({
+                                    data: true,
+                                })
+                            };
+                            // return callback(null, response);
+                            //return response;
+                            resolve(response);
+
 
                         }
 
@@ -122,7 +164,20 @@ export async function lambdaHandler(event, context) {
 
                 } else {
                     console.log("data is null in fetch data");
-                    reject(" data in fetch data is null");
+                    response = {
+                        'statusCode': 400,
+                        'headers': {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Headers": "*",
+                            "Access-Control-Allow-Methods": "*"
+                        },
+                        'body': JSON.stringify({
+                            error: "data is null in fetch data",
+                        })
+                    };
+                    // return callback(null, response);
+                    //return response;
+                    reject(response);
                 }
             }
 
