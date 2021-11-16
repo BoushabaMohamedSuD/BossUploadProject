@@ -7,7 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^10.17.14",
-    "aws-sdk": "^2.659.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.18.0"
   },
   "scripts": {
